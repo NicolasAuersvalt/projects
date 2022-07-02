@@ -8,6 +8,7 @@
 #include <ESP8266_Lib.h>
 #include <BlynkSimpleShieldEsp8266.h>
 #include <SoftwareSerial.h>
+#include <Servo.h>
 
 // You should get Auth Token in the Blynk App.
 char auth[] = BLYNK_AUTH_TOKEN;
@@ -20,7 +21,7 @@ char pass[] = "7707224527";
 #define EspSerial Serial1
 
 //SoftwareSerial EspSerial(2, 3); // RX, TX
-SoftwareSerial EspSerial(11, 10); // RX, TX
+SoftwareSerial EspSerial(10, 11); // RX, TX
 
 // Your ESP8266 baud rate:
 #define ESP8266_BAUD 9600
@@ -31,9 +32,17 @@ ESP8266 wifi(&EspSerial);
 #define pwm 3 /* Transistor */
 const int max_range = 200; /* Valor máximo da velocidade */
 
-void setup(){
-  pinMode(pwm, OUTPUT);-
+// Configurações dos Componentes
+#define led 2
+#define servo 9
+#define trig 7
+#define echo 6
 
+//Servo servo_motor;
+
+void setup(){
+  pinMode(pwm, OUTPUT);
+  pinMode(led, OUTPUT);
   // Debug console
   Serial.begin(9600);
   
@@ -41,19 +50,35 @@ void setup(){
   EspSerial.begin(ESP8266_BAUD);
 
   Blynk.begin(auth, wifi, ssid, pass);
+  //servo_motor.attach(servo);
 }
 
 void loop(){
   Blynk.run();
 }
-
 //Pino Virtual Selecionado no Joystick
-BLYNK_WRITE(V1){ /* Joystick (V1), Button (V2) */
+BLYNK_WRITE(V0){ /* Joystick (V1), Button (V2) */
   int y = param[0].asInt();
-  
-  // Teste
   Serial.print(y);
+}
+BLYNK_WRITE(V1){
+  int x = param.asInt();
+  Serial.print(x);
+  analogWrite(pwm, x);
+}
+BLYNK_WRITE(V2){
+  int l = param.asInt();
+  Serial.print(l);
+
+  if(l == 1){
+    digitalWrite(led, HIGH);
+  }
+  if(l == 0){
+    digitalWrite(led, LOW);
+  }
+}
+  // Teste
 
   // Função
-  analogWrite(pwm, y);
-}
+  
+  // servo_motor.write(x);
