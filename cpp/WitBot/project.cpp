@@ -34,9 +34,9 @@ const int max_range = 200; /* Valor máximo da velocidade */
 
 // Configurações dos Componentes
 #define led 2
-#define servo 9
-#define trig 7
-#define echo 6
+// #define servo 9
+// #define trig 7
+// #define echo 6
 
 //Servo servo_motor;
 
@@ -60,11 +60,12 @@ void loop(){
 BLYNK_WRITE(V0){ /* Joystick (V1), Button (V2) */
   int y = param[0].asInt();
   Serial.print(y);
+  analogWrite(pwm, y); 
 }
 BLYNK_WRITE(V1){
-  int x = param.asInt();
+  int x = param[1].asInt();
   Serial.print(x);
-  analogWrite(pwm, x);
+  analogWrite(pwm, x); 
 }
 BLYNK_WRITE(V2){
   int l = param.asInt();
