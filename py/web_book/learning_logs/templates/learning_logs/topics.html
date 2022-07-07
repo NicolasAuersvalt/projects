@@ -1,10 +1,21 @@
+{% extends "learning_logs/base.html"%} 
+<!-- Herda base.html-->>
+
 {% block content %}
 
-<p> Topics </p>
-<ul> {% for topic in topics %}
-    <li>{{ topic }} </li>
+<p>Topics</p>
+<ul>{% for topic in topics %}
+    <!-- Laço For que percorre a lista topics do dicionário context-->>
+    
+    <!-- Para exibir uma variável, colocamos ela entre chaves duplas -->>
+    <!-- {{variável}} -->>
+        <li>{{ topic }}</li>
+
+    <!-- diz a Django o que fazer se não tiver nenhum item na lista-->>
     {% empty %}
-    <li> Nenhum tópico adicionado ainda </li>
+        <li> Nenhum tópico adicionado ainda </li>
+
+    <!-- Fim do laço -->        
     {% endfor %}
 </ul>
 {% endblock content %}
