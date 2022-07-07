@@ -1,0 +1,10 @@
+{% block content %}
+
+<p> Topics </p>
+<ul> {% for topic in topics %}
+    <li>{{ topic }} </li>
+    {% empty %}
+    <li> Nenhum tópico adicionado ainda </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
