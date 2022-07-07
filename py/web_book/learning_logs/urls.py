@@ -15,8 +15,6 @@ urlpatterns = [
     # The view argument is a view function or the result of as_view() for class-based views.
     # It can also be an django.urls.include().
 
-    # See Naming URL patterns for why the name argument is useful.
-
     # Pagina Inicial
     path(r'', views.index, name='index'),
     # Mostra todos os assuntos 
