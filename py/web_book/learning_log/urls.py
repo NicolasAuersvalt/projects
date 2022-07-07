@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from learning_logs import views
 from django.urls import include, path
 
 import learning_logs
@@ -21,6 +22,19 @@ import learning_logs
 urlpatterns = [
     # path (route, view, **kwargs, name)
     # path('admin/', admin.site.urls), path(r'', 'learning_logs.urls', namespace = 'learning_logs'),
+
+        # include(module, namespace=None)¶
+        # include(pattern_list)
+        # include((pattern_list, app_namespace), namespace=None)
+
+            # module – URLconf module (or module name)
+            # namespace (str) – Instance namespace for the URL entries being included
+            # pattern_list – Iterable of path() and/or re_path() instances.
+            # app_namespace (str) – Application namespace for the URL entries being included
+
+
     path(r'admin/', admin.site.urls), 
-    path(r'', include('learning_logs.urls'), name = 'learning_logs'),
+    path(r'', include('learning_logs.urls', namespace = 'learning_logs')),
 ]
+
+

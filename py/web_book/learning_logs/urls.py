@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 
 urlpatterns = [
@@ -16,7 +16,9 @@ urlpatterns = [
     # It can also be an django.urls.include().
 
     # Pagina Inicial
-    path(r'', views.index, name='index'),
+    re_path(r'', views.index, name='index'),
+
     # Mostra todos os assuntos 
-    path(r'topics/', views.topics, name = 'topics'),
+    re_path(r'ˆtopics(?P<topic_id>\d+)$', views.topics, name = 'topics'),
 ]
+app_name = "learning_logs"
