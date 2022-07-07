@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- Modelo Pai para outras páginas! -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <p><a href="{% url 'learning_logs:index'%}""></a></p>
+        <!-- Isso é uma tag de template, ela gera uma porção de código -->>
+        <!-- a serem exibidas em uma página-->
+        <!-- Nesse caso, gera-se um url que corresponda ao padrão definido em urls-->
+        <!-- Aqui, learning_logs é o namespace, index é um padrão url unico-->>
+        {% block content %}{% end %}
+        <!-- Aqui é um Placeholder, o template-filho definirá o que será exibido -->
+    </main>
+</body>
+</html>

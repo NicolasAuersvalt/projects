@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        {% block content %}
+        <article> <!-- Tela Incial -->
+            <h2>Learning Logs</h2>
+              <div id="topicos">
+                <hr>
+                <ul>
+                    <li><a>Home</a></li>
+                    <li><a href="home">Topics</a></li>
+                    <li>Users</li>
+                    
+                </ul>
+                <hr>
+              </div>
+            <p>Vamos Aprender a curtir um metalzão.</p>
+        </article>
+        {% enblock content %}
+
+    </main>
+</body>
+</html>
