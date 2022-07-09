@@ -4,20 +4,11 @@
 <!-- Para exibir uma variável, colocamos ela entre chaves duplas -->
 <!-- {{variável}} -->
 <!--Tal variável está armazenada em Context, no python-->
-<p>Topic: {{topic}}</p>
+<p>Topicos: {{topic}}</p>
 <p>Entries:</p>
 
 <!-- Laço For que percorre a lista topics do dicionário context-->
-<ul>{% for topic in topics %}
-
-    <!-- Geramos um url adequado consultando learning_logs.urls com o nome topic-->
-    <!-- Esse padrão exige um parâmetro topic_id, por exemplo-->
-    <!-- topic/1/ topic/2/-->
-    <li><a href="{ ulr 'learning_logs:topic' topic.id}">{{topic}}</a></li>
-
-    <!--Cada item exibirá o Timestamp e o conteúdo-->
-    <!-- Timestamp, temos o date_added-->
-
+<ul>{% for entry in entries %}
 
     <li>
         <!-- O (|) é um filtro de template, uma função que modifica o valor-->
@@ -25,13 +16,18 @@
         <!-- o filtro (|date:"M d, Y H:i) exibe, por exemplo"-->
         <!-- January 1, 2022 23:00-->
         <p>{{entry.date_added|date:'M d, Y H:i'}}</p>
+        <p>{{topic}}</p>
 
         <!-- Exibe o valor completo de entry, e não os 50 primeiros-->
         <!-- |linebreaks fornece uma quebra de linha favorável aos navegadores-->
         <p>{{ entry.text|linebreaks }}</p>
-    </li>
-    <li>{{ topic }}</li>
 
-    <!-- diz a Django o que fazer se não tiver nenhum item na lista-->
-    {% empty %}
-    <li> Nenhum tópico adicionado ainda </li>
+    </li>
+        <!-- diz a Django o que fazer se não tiver nenhum item na lista-->
+        {% empty %}
+
+    <li> Nenhum tópico adicionado ainda.</li>
+    {%endfor%}
+</ul>
+
+{% endblock content %}

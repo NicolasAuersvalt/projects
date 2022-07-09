@@ -19,10 +19,10 @@ urlpatterns = [
     re_path(r'^$', views.index, name='index'),
 
     # Mostra todos os assuntos 
-    re_path(r'topics', views.topics, name='topics'),
+    re_path(r'^topics/$', views.topics, name='topics'),
 
     # Mostra os assuntos individuais
-    re_path(r'topics(?P<topic_id>\d+)$', views.topic, name='topic'),
+    re_path(r'^topics/(?P<topic_id>\d+)/$', views.topic, name='topic'),
     
     # route as regular expressions
         
