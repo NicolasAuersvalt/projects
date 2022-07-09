@@ -1,12 +1,31 @@
-<p> <a href="{% url 'learning_logs:index' %}">Learning Logs</a>
-    <!-- Isso é uma tag de template, ela gera uma porção de código -->
-    <!-- a serem exibidas em uma página-->
-    <!-- Nesse caso, gera-se um url que corresponda ao padrão definido em urls-->
-    <!-- Aqui, learning_logs é o namespace, index é um padrão url unico-->
-    <!-- Aqui é um Placeholder, o template-filho definirá o que será exibido -->
-<p></p><a href="{% url 'learning_logs:topics' %}">Topics</a> </p>
-
-<!-- Adicionamos um traço ao final do link para que o Django gere um link que -->
-<!-- corresponda ao padrão url cujo nome é topics em urls.py -->
-
-{% block content %}{% endblock content %}
+{%load bootstrap3%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <ul class="nav justify-content-center bg-light">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'learning_logs:index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'learning_logs:topics' %}">Projetos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Game</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Disabled</a>
+            </li>
+          </ul>
+        {%block content%}
+        {%endblock content%}
+      </div>
+</body>
+</html>
