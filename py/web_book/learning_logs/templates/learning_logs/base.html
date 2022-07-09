@@ -1,13 +1,12 @@
-<p> <a href="{% url 'learning_logs:index' %}">Learning Logs</a>-
-    <!-- Isso é uma tag de template, ela gera uma porção de código -->>
-        <!-- a serem exibidas em uma página-->
-        <!-- Nesse caso, gera-se um url que corresponda ao padrão definido em urls-->
-        <!-- Aqui, learning_logs é o namespace, index é um padrão url unico-->
-        <!-- Aqui é um Placeholder, o template-filho definirá o que será exibido -->
-    <a href = "{% url 'learning_logs:topics' %}">Topics</a> </p>
+<p> <a href="{% url 'learning_logs:index' %}">Learning Logs</a>
+    <!-- Isso é uma tag de template, ela gera uma porção de código -->
+    <!-- a serem exibidas em uma página-->
+    <!-- Nesse caso, gera-se um url que corresponda ao padrão definido em urls-->
+    <!-- Aqui, learning_logs é o namespace, index é um padrão url unico-->
+    <!-- Aqui é um Placeholder, o template-filho definirá o que será exibido -->
+<p></p><a href="{% url 'learning_logs:topics' %}">Topics</a> </p>
 
-    <!-- Adicionamos um traço ao final do link para que o Django gere um link que -->>
-    <!-- corresponda ao padrão url cujo nome é topics em urls.py -->>
+<!-- Adicionamos um traço ao final do link para que o Django gere um link que -->
+<!-- corresponda ao padrão url cujo nome é topics em urls.py -->
 
 {% block content %}{% endblock content %}
-

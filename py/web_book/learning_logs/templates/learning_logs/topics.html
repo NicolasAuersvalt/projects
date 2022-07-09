@@ -1,41 +1,22 @@
-{% extends "learning_logs/base.html"%} 
+{% extends "learning_logs/base.html"%}
 <!-- Herda base.html-->>
 
 {% block content %}
 
-<!-- Para exibir uma variável, colocamos ela entre chaves duplas -->>
-    <!-- {{variável}} -->>
-    <!--Tal variável está armazenada em Context, no python-->
-<p>Topic: {{topic}}</p>
-<p>Entries:</p>
- 
-<!-- Laço For que percorre a lista topics do dicionário context-->>
- <ul>{% for topic in topics %}
+<!-- Para exibir uma variável, colocamos ela entre chaves duplas -->
+<!-- {{variável}} -->
+<!--Tal variável está armazenada em Context, no python-->
+<p>Topics</p>
 
-    <!-- Geramos um url adequado consultando learning_logs.urls com o nome topic-->>
-    <!-- Esse padrão exige um parâmetro topic_id, por exemplo-->
-    <!-- topic/1/ topic/2/-->
-    <li><a href="{ ulr 'learning_logs:topic' topic.id}">{{topic}}</a></li>    
-    
-    <!--Cada item exibirá o Timestamp e o conteúdo-->
-    <!-- Timestamp, temos o date_added-->
+<!-- Laço For que percorre a lista topics do dicionário context-->
+<ul>{%for topic in topics%}
+    <li>{{topic}}</li>
 
-    <!-- O (|) é um filtro de template, uma função que modifica o valor-->
-        <!-- de uma variável de template-->>
-        <!-- o filtro (|date:"M d, Y H:i) exibe, por exemplo"-->
-        <!-- January 1, 2022 23:00-->
-    <li><p>{{entry.date_added|date:'M d, Y H:i'}}</p>
-        
-    <!-- Exibe o valor completo de entry, e não os 50 primeiros-->>
-    <!-- |linebreaks fornece uma quebra de linha favorável aos navegadores-->>
-    <p>{{ entry.text|linebreaks }}</p></li>
-        <li>{{ topic }}</li>
-
-    <!-- diz a Django o que fazer se não tiver nenhum item na lista-->>
-    {% empty %}
-        <li> Nenhum tópico adicionado ainda </li>
-
-    <!-- Fim do laço -->        
-    {% endfor %}
+    <!-- diz a Django o que fazer se não tiver nenhum item na lista-->
+    {%empty%} <p>Nada adicionado ainda</p>
 </ul>
-{% endblock content %}
+
+{%endfor%}
+
+<!-- Fim do laço -->
+{%endblock content%}
