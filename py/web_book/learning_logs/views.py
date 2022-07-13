@@ -41,16 +41,45 @@ def topic(request, topic_id): # Mostra um assunto e todas as suas entradas
 
 def new_topic(request):
 
+    # Nenhum dado submetido. Cria um formulário em branco
+
+        # Caso não seja POST, sempre será um GET
     if request != 'POST': 
-        # Nenhum dado submetido. Cria um formulário em branco
+
+        # Por ser GET, devolve um formulário em branco.
         form = TopicForm()
     else:
-        # Dados submetidos, processa os dados
+
+        # Sendo POST, vai receber e processar os dados
         form = TopicForm(request.POST)
+
+        # A função is_valid() verifica se o tipo é compatível com o requisitado:
+
+            # Por exemplo text com 200 caracteres.
         if form.is_valid():
+
+            # Se caso estiver certo, chamará o save()
+
+                # E depois grava no banco de dados
             form.save
+            
+            # Obtemos o url da pagina e passamos para HttpResponse
+
+                # Este que direciona o navegador do usuário para essa página
             return HttpResponseRedirect(reverse('learning_logs:topics'))
 
     context = {'form': form}
 
     return render(request, 'learning_logs/new_topic.html', context)
+
+    # Temos alguns tipos de requisições: GET e POST
+
+    # GET para páginas que apenas leem dados do servidor
+
+    # POST quando o usuário precisa submeter informações por formulário
+
+        # Formulário em branco, o navegador manda GET e o servidor intepreta como no código acima
+
+        # Formulário preenchido, o navegador envia um POST que, caso não seja, sempre será um GET
+
+        # Então o servidor faz o digitado acima

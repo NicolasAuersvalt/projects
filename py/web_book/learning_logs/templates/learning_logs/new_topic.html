@@ -1,0 +1,10 @@
+{%extends "learning_logs/base.html"%}
+
+{%block content%}
+<p> Passe seus dados bancários: </p>
+<from action="{%url 'learning_logs:new_topic'%}" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button name="Manda ae">Adicionar</button>
+</from>
+{%endblock content%}

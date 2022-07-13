@@ -25,7 +25,7 @@ urlpatterns = [
     re_path(r'^topics/(?P<topic_id>\d+)/$', views.topic, name='topic'),
 
     # Mostra o novo assunto
-    #re_path(r'^new_topic$', new_topic.view, name = 'new_topic')
+    re_path(r'^new_topic/$', views.new_topic, name = 'new_topic'),
     
     # route as regular expressions
         
