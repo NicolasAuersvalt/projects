@@ -1,7 +1,5 @@
 from cgitb import text
 from dataclasses import fields
-from tkinter import Widget
-from tkinter.ttk import LabeledScale
 from .models import Topic, Entry
 from django import forms
 
