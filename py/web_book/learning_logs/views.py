@@ -1,7 +1,10 @@
+from pickle import FALSE
+from socketserver import DatagramRequestHandler
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from .models import Topic, Entry
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 
 # Create your views here
 
@@ -71,6 +74,46 @@ def new_topic(request):
     context = {'form': form}
 
     return render(request, 'learning_logs/new_topic.html', context)
+
+def new_entry(request, topic_id):
+
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method != 'POST': # Seja GET
+        
+        # Cria um formulário
+
+            # ou seja, uma instância em branco
+        form = EntryForm()
+    
+    else: # Processa os dados
+        
+        # Processa os dados criando uma instância recebendo objeto request com os dados de POST
+        form = EntryForm(data=request.POST)
+
+    if form.is_valid: # Verificamos se o formulário é valido
+        # Precisamos definir o atributo topic antes de salvar no banco de dados
+
+        # Quando chamamos save(), passamos commit=false para que 
+        # Django crie um novo objeto de entrada 
+        # e armazene em new_etry antes de salvar no banco de dados.
+        new_entry = form.save(commmit=False)
+
+        # Definimos o atributo topic de entry com o assunto
+        # extraído do banco de dados.
+        new_entry.topic = topic
+
+        # Então chamamos save, ele salva a entrada ao assunto correto.
+        new_entry.save()
+
+        # Redirecionamos para a página de assuntos
+        # reverse exige dois argumentos: o nome padrão do url e uma
+        # lista args contendo qualquer coisa a ser incluida no url, neste caso, topic_id
+        return HttpResponseRedirect(reverse('learning_logs:topics'))
+
+    context = {'topic': topic, 'form': form}
+
+    return render(request, 'learning_logs/new_entry.html', context)
 
     # Temos alguns tipos de requisições: GET e POST
 

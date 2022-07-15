@@ -2,9 +2,21 @@
 
 {%block content%}
 <p> Passe seus dados bancários: </p>
-<from action="{%url 'learning_logs:new_topic'%}" method="post">
+
+<!-- Aqui é definido um formulário html (from) -->
+    <!-- action é para onde devem ser enviados os dados inseridos -->
+    <!-- nesse caso, são enviadas a views de new_topic -->
+
+<!-- O método method diz para submeter os dados com a requisição POST -->
+<form action="{%url 'learning_logs:new_topic'%}" method="POST">
+
+    <!-- Evitar que os usuários consigam acesso ao servidor -->
+    <!-- Ataques como cross-site request forgery -->
     {%csrf_token%}
+
+    <!-- Cria um formulário -->
+        <!-- as_p diz para criar em forma de parágrafo -->
     {{form.as_p}}
     <button name="Manda ae">Adicionar</button>
-</from>
+</form>
 {%endblock content%}
