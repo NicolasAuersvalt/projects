@@ -1,0 +1,98 @@
+{% load bootstrap4 %}
+{% load static%}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Base</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href={%static '/images/foto.jpeg' %}>
+        <script src='main.js'></script>
+    </head>
+
+    <div class='container'>
+
+        <body>
+            <!-- NavBar -->
+            <div class="mx-auto" style="width: 200px;"></div>
+            <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Nícolas' Site</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">WitBot</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Game</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Outros
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    </div>
+    </nav>
+    </div>
+    <div class="container">
+        <p class="text-center"> .</p>
+    </div>
+
+    <div class="container fs-2 mt-5">
+        <p class="text-center"> Meus Projetos:</p>
+    </div>
+
+    <div class="container">
+
+        <div class="card-group mt-3">
+            <div class="card">
+              <img src="{%static 'images/robo.png'%}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">WitBot</h5>
+                <p class="card-text">Uma Plataforma Robótica com garras, sensor ultrassônico, ESP8266 e Led. Possui Chassi 4w, está baseada em diodo.</p>
+              </div>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <div class="card-footer">
+                <small class="text-muted">Versão 1.0</small>
+              </div>
+            </div>
+            <div class="card">
+              <img src="{%static 'images/bg1.png'%}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Alien Game</h5>
+                <p class="card-text">Esse é um jogo de nave contra aliens. O mundo está tomado por Aliens e você precisa eliminá-los antes do eclipse, pois algo ruim pode acontecer.</p>
+              </div>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <div class="card-footer">
+                <small class="text-muted">Versão 1.1</small>
+              </div>
+            </div>
+    </div>
+
+    {%block content%}
+    {%endblock content%}
+    </body>
+
+</html>
