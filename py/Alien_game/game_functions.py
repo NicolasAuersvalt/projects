@@ -2,7 +2,7 @@ import sys
 import unittest
 import pygame
 
-from Projeto_Game import bullet
+from bullet import *
 from ship import *
 from settings import *
 from bullet import *
