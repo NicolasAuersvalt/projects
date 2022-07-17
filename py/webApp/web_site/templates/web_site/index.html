@@ -1,16 +1,59 @@
 {%extends 'web_site/base.html'%}
+{%load static%}
+
 <!DOCTYPE html>
 <html>
-<head>
+
+  <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Index</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
-</head>
-<body>
+  </head>
+
+  <body>
     {%block content%}
-    {%endblock content%}    
-</body>
+
+    <div class="container">
+      <p class="text-center"> .</p>
+    </div>
+
+    <div class="container fs-2 mt-5">
+      <p class="text-center"> Meus Projetos:</p>
+    </div>
+
+    <div class="container">
+
+      <div class="card-group mt-3">
+        <div class="card">
+          <img src="{%static 'images/robo.png'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">WitBot</h5>
+            <p class="card-text">Uma Plataforma Robótica com garras, sensor ultrassônico, ESP8266 e Led. Possui Chassi
+              4w, está baseada em diodo.</p>
+          </div>
+          <a href="{% url 'web_site:witbot'%}" class="btn btn-primary">Ler</a>
+          <div class="card-footer">
+            <small class="text-muted">Versão 1.0</small>
+          </div>
+        </div>
+        <div class="card">
+          <img src="{%static 'images/bg1.png'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Alien Game</h5>
+            <p class="card-text">Esse é um jogo de nave contra aliens. O mundo está tomado por Aliens e você precisa
+              eliminá-los antes do eclipse, pois algo ruim pode acontecer.</p>
+          </div>
+          <a href="{% url 'web_site:game'%}" class="btn btn-primary">Ler</a>
+          <div class="card-footer">
+            <small class="text-muted">Versão 1.1</small>
+          </div>
+        </div>
+      </div>
+
+      {%endblock content%}
+  </body>
+
 </html>

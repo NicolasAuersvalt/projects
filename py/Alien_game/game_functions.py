@@ -8,7 +8,7 @@ from settings import *
 from bullet import *
 
 
-""" Pressionamento de teclas """
+''' Pressionamento de teclas '''
 def key_down(event, ai_settings, screen, ship, bullets):
     if event.key == pygame.K_RIGHT:
         # Mova a espaçonave para a direita, ou seja, some o rect.centerx

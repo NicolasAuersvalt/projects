@@ -1,0 +1,47 @@
+{%extends 'web_site/base.html'%}
+{%load static%}
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>WitBot</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+        <script src='main.js'></script>
+    </head>
+
+    <body>
+        {%block content%}
+        <div class=container>
+            <div id="carouselExampleControls" class="carousel slide position-absolute start-50 top-50 translate-middle" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <p class="text-center fs-2"> WitBot:</p>
+                    <img src="{%static 'images/robo.png'%}" class="d-block" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="..." class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="..." class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+                <p class="text-center fs-5"> Este é um projeto de uma Plataforma Robótica com garras, sensor ultrassônico, ESP8266 e Led. Possui Chassi
+                    4w, está baseada em diodo.</p>
+              </div>
+        </div>
+        {%endblock content%}
+    </body>
+
+</html>
