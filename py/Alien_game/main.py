@@ -5,16 +5,14 @@ Propostas: Antes de sair, salvar progresso
 """
 import sys
 import pygame
-from ship import *
-from settings import *
+from settings import Settings
 from song import Musicas
+from bullet import Bullet
+from ship import Ship
 from game_functions import *
-from bullet import *
 from pygame.sprite import Group
 
 musica_tocando = 0
-
-
 
 def run():
     """
@@ -35,16 +33,23 @@ def run():
     ship = Ship(screen, ai_settings)
     bullets = Group()
 
+    # Cria um alien
+
+     # Frota de Alienígenas
+    aliens = Group()
+    fleet(ai_settings, screen, aliens)
+
+    # Loop Musical
     if musica_tocando == 0:
         pygame.mixer.music.load(Musicas().level1)
         pygame.mixer.music.play()
         musica_tocando = 1
+
     while True:  # Inicia o laço principal do jogo
         check_events(ai_settings, screen, ship, bullets)
         bullets.update()
         ship.update()
         update_bullets(bullets)
-        update_screen(ai_settings, screen, ship, bullets)
-
+        update_screen(ai_settings, screen, ship, aliens, bullets)
 
 run()
