@@ -24,7 +24,7 @@ void setup()
     motor4.run(RELEASE);
 }
 
-void movement()
+int movement(int time)
 {
     /* Unsigned Int = Basic type
     ex: uint8_ = 8 bytes
@@ -87,7 +87,7 @@ void movement()
     }
 }
 
-void loop(time = 10)
+void loop()
 {
-    movement();
+    movement(10);
 }
