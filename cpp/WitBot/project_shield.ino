@@ -51,7 +51,7 @@ int movement(int time)
     }
 
     // Retrograde Frontal Movement
-    for (i = 200; i >= 0; i--)
+    for (i = 200; i != 0; i--)
     {
         motor1.setSpeed(i);
         motor2.setSpeed(i);
@@ -74,15 +74,36 @@ int movement(int time)
         motor2.setSpeed(i);
         motor3.setSpeed(i);
         motor4.setSpeed(i);
+        delay(time);
     }
 
     // Retrograde Back Movement
-    for (i = 200; i >= 0; i--)
+    for (i = 200; i != 0; i--)
     {
         motor1.setSpeed(i);
         motor2.setSpeed(i);
         motor3.setSpeed(i);
         motor4.setSpeed(i);
+        delay(time);
+    }
+
+    // Left Turn
+    for (i = 0; i < 200; i++)
+    {
+        motor1.setSpeed(RELEASE);
+        motor2.setSpeed(i);
+        motor3.setSpeed(i);
+        motor4.setSpeed(i);
+        delay(time);
+    }
+
+    // Right Turn
+    for (i = 0; i < 200; i++)
+    {
+        motor1.setSpeed(i);
+        motor2.setSpeed(i);
+        motor3.setSpeed(i);
+        motor4.setSpeed(RELEASE);
         delay(time);
     }
 }
