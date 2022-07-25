@@ -1,10 +1,10 @@
 #include <AFMotor.h>
 
 // Define o Motor em M1
-AF_DCmotor motor1(1);
-AF_DCmotor motor2(2);
-AF_DCmotor motor3(3);
-AF_DCmotor motor4(4);
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+AF_DCMotor motor3(3);
+AF_DCMotor motor4(4);
 
 int time; // Delay Time
 
