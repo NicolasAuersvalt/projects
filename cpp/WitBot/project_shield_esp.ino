@@ -9,6 +9,7 @@
 #include <BlynkSimpleShieldEsp8266.h>
 #include <SoftwareSerial.h>
 #include <Servo.h>
+#include <AFMotor.h>
 
 // You should get Auth Token in the Blynk App.
 char auth[] = BLYNK_AUTH_TOKEN;
@@ -47,7 +48,7 @@ int time; // Delay Time
 
 //Servo servo_motor;
 
-int moviment(time){
+int move(int time, int x, int y){
     /* 
     - Frontal
     motor1 - Right
@@ -60,7 +61,7 @@ int moviment(time){
 
     // Accelerated Movement
     
-    if(x > 1 and y > 0) // Right Turn  
+    if(x > 1 && y > 0) // Right Turn  
     {
         // Start motor running (FORWARD AND BACKWARD)
         motor1.setSpeed(y); 
@@ -77,7 +78,7 @@ int moviment(time){
         delay(time);
     }
     
-    if(x < 1 and y > 0) // Left Turn  
+    else if(x < 1 && y > 0) // Left Turn  
     {
         motor1.setSpeed(y); 
         motor1.run(FORWARD);
@@ -95,7 +96,7 @@ int moviment(time){
 
     // Retograde Movement
     
-    if(x > 1 and y < 0) // Right Turn  
+    else if(x > 1 && y < 0) // Right Turn  
     {
         motor1.setSpeed(y); 
         motor1.run(RELEASE);
@@ -111,7 +112,7 @@ int moviment(time){
         delay(time);
     }
     
-    if(x < 1 and y < 0) // Left Turn  
+    else if(x < 1 && y < 0) // Left Turn  
     {
         motor1.setSpeed(y); 
         motor1.run(BACKWARD);
@@ -126,8 +127,54 @@ int moviment(time){
         motor4.run(FORWARD);
         delay(time);
     }
-}
 
+    else if(x==0 && y<0)
+    {
+        motor1.setSpeed(y); 
+        motor1.run(FORWARD);
+
+        motor2.setSpeed(y); 
+        motor2.run(FORWARD);
+
+        motor3.setSpeed(y); 
+        motor3.run(BACKWARD);
+
+        motor4.setSpeed(y);
+        motor4.run(BACKWARD);
+        delay(time);
+    }
+
+    else if(x==0 && y<0)
+    {
+        motor1.setSpeed(y); 
+        motor1.run(BACKWARD);
+
+        motor2.setSpeed(y); 
+        motor2.run(BACKWARD);
+
+        motor3.setSpeed(y); 
+        motor3.run(FORWARD);
+
+        motor4.setSpeed(y);
+        motor4.run(FORWARD);
+        delay(time);
+    }
+    else if(x==0 && y==0)
+    {
+        motor1.setSpeed(y); 
+        motor1.run(RELEASE);
+
+        motor2.setSpeed(y); 
+        motor2.run(RELEASE);
+
+        motor3.setSpeed(y); 
+        motor3.run(RELEASE);
+
+        motor4.setSpeed(y);
+        motor4.run(RELEASE);
+        delay(time);
+    }
+}
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -161,22 +208,28 @@ Joystick (V0 and V1)
 Led_Button (V3) 
 */
 
-// Pino Virtual Selecionado no Joystick
-BLYNK_WRITE(V0){ / // Y_Axis
+/* Pino Virtual Selecionado no Joystick
+
+*/
+BLYNK_WRITE(V0){ 
   int x = param[0].asInt();
   int y = param[1].asInt();
-  Serial.print("Y_Axis"+y+" ");
-  Serial.print("X_Axis"+x+" ");
-  analogWrite(pwm, y); 
+  Serial.print(y);
+  Serial.print(x);
+  move(10, x, y);
 }
 
+/*
 BLYNK_WRITE(V1){ // X_Axis
   int x = param[0].asInt();
   Serial.print(x);
-  analogWrite(pwm, x); 
+  //analogWrite(pwm, x); 
 }
+*/
 
-// Led
+
+/*
+ // Led
 BLYNK_WRITE(V3){
   int l = param.asInt();
   Serial.print(l);
@@ -188,3 +241,4 @@ BLYNK_WRITE(V3){
     digitalWrite(led, LOW);
   }
 }
+*/
