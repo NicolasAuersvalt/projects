@@ -1,9 +1,3 @@
-"""
-Invasão Alienígena
-
-Propostas: Antes de sair, salvar progresso
-"""
-import sys
 import pygame
 from settings import Settings
 from song import Musicas
@@ -14,22 +8,18 @@ from pygame.sprite import Group
 
 musica_tocando = 0
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90df117cb6d64452c23c370739f17aa9de6af706
 def run():
-    """
-    Para todo <py.game>, nós teremos uma relação de funções
-
-    .diplay - Vamos trabalhar com a Janela
-    .init() - Iniciaremos o programa
-
-    :return:
-    """
 
     global musica_tocando
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((Settings().screen_x,
                                       Settings().screen_y))  # Define a escala da Janela, Settings().screenx -> Vem de settings.py
-    pygame.display.set_caption("Alien")  # Define o Título
+    pygame.display.set_caption('Alien')  # Define o Título
     ship = Ship(screen, ai_settings)
     bullets = Group()
 

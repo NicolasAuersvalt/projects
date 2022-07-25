@@ -12,3 +12,15 @@ def topic(request):
     context = {'topic':topic}
 
     return render(request, 'web_site/index.html', context)
+
+def witbot(request):
+    topic = Topic.objects.order_by('date_added')
+    context={'topic':topic}
+
+    return render(request, 'web_site/witbot.html', context)
+
+def game(request):
+    topic = Topic.objects.order_by('date_added')
+    context = {'topic':topic}
+
+    return render(request, 'web_site/game.html', context)
