@@ -8,8 +8,8 @@
 #include <ESP8266_Lib.h>
 #include <BlynkSimpleShieldEsp8266.h>
 #include <SoftwareSerial.h>
-#include <Servo.h>
 #include <AFMotor.h>
+#include <string>
 
 // You should get Auth Token in the Blynk App.
 char auth[] = BLYNK_AUTH_TOKEN;
@@ -21,8 +21,7 @@ char pass[] = "7707224527";
 
 #define EspSerial Serial1
 
-//SoftwareSerial EspSerial(2, 3); // RX, TX
-SoftwareSerial EspSerial(10, 11); // RX, TX
+SoftwareSerial EspSerial(9, 10); // RX, TX
 
 // Your ESP8266 baud rate:
 #define ESP8266_BAUD 9600
@@ -48,8 +47,8 @@ int time; // Delay Time
 
 //Servo servo_motor;
 
-int move(int time, int x, int y){
-    /* 
+int mov(int time, int x, int y) {
+  /*
     - Frontal
     motor1 - Right
     motor2 - Left
@@ -57,180 +56,175 @@ int move(int time, int x, int y){
     - Back
     motor3 - Left
     motor4 - Right
-    */
+  */
+  
+  // Accelerated Movement
 
-    // Accelerated Movement
+  if ((x >! 0) && (y >! 0)) // Right Turn
+  {
+    Serial.println("Deu!!"); // TESTE
     
-    if(x > 1 && y > 0) // Right Turn  
-    {
-        // Start motor running (FORWARD AND BACKWARD)
-        motor1.setSpeed(y); 
-        motor1.run(RELEASE); // Stopped
+    // Start motor running (FORWARD AND BACKWARD)
+    motor1.setSpeed(y);
+    motor1.run(RELEASE); // Stopped
 
-        motor2.setSpeed(y); 
-        motor2.run(FORWARD);
+    motor2.setSpeed(y);
+    motor2.run(FORWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(BACKWARD);
+    motor3.setSpeed(y);
+    motor3.run(BACKWARD);
 
-        motor4.setSpeed(y);
-        motor4.run(BACKWARD);
-        delay(time);
-    }
-    
-    else if(x < 1 && y > 0) // Left Turn  
-    {
-        motor1.setSpeed(y); 
-        motor1.run(FORWARD);
+    motor4.setSpeed(y);
+    motor4.run(BACKWARD);
+    delay(time);
+  }
 
-        motor2.setSpeed(y); 
-        motor2.run(RELEASE);
+  else if ((x <! 1) && (y >! 0)) // Left Turn
+  {
+    motor1.setSpeed(y);
+    motor1.run(FORWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(BACKWARD);
+    motor2.setSpeed(y);
+    motor2.run(RELEASE);
 
-        motor4.setSpeed(y);
-        motor4.run(BACKWARD);
-        delay(time);
-    }
+    motor3.setSpeed(y);
+    motor3.run(BACKWARD);
 
-    // Retograde Movement
-    
-    else if(x > 1 && y < 0) // Right Turn  
-    {
-        motor1.setSpeed(y); 
-        motor1.run(RELEASE);
+    motor4.setSpeed(y);
+    motor4.run(BACKWARD);
+    delay(time);
+  }
 
-        motor2.setSpeed(y); 
-        motor2.run(BACKWARD);
+  // Retograde Movement
 
-        motor3.setSpeed(y); 
-        motor3.run(FORWARD);
+  else if ((x >! 1) && (y <! 0)) // Right Turn
+  {
+    motor1.setSpeed(y);
+    motor1.run(RELEASE);
 
-        motor4.setSpeed(y);
-        motor4.run(FORWARD);
-        delay(time);
-    }
-    
-    else if(x < 1 && y < 0) // Left Turn  
-    {
-        motor1.setSpeed(y); 
-        motor1.run(BACKWARD);
+    motor2.setSpeed(y);
+    motor2.run(BACKWARD);
 
-        motor2.setSpeed(y); 
-        motor2.run(RELEASE);
+    motor3.setSpeed(y);
+    motor3.run(FORWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(FORWARD);
+    motor4.setSpeed(y);
+    motor4.run(FORWARD);
+    delay(time);
+  }
 
-        motor4.setSpeed(y);
-        motor4.run(FORWARD);
-        delay(time);
-    }
+  else if ((x <! 1) && (y <! 0)) // Left Turn
+  {
+    motor1.setSpeed(y);
+    motor1.run(BACKWARD);
 
-    else if(x==0 && y<0)
-    {
-        motor1.setSpeed(y); 
-        motor1.run(FORWARD);
+    motor2.setSpeed(y);
+    motor2.run(RELEASE);
 
-        motor2.setSpeed(y); 
-        motor2.run(FORWARD);
+    motor3.setSpeed(y);
+    motor3.run(FORWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(BACKWARD);
+    motor4.setSpeed(y);
+    motor4.run(FORWARD);
+    delay(time);
+  }
 
-        motor4.setSpeed(y);
-        motor4.run(BACKWARD);
-        delay(time);
-    }
+  else if ((x == 0) && (y <! 0))
+  {
+    motor1.setSpeed(y);
+    motor1.run(FORWARD);
 
-    else if(x==0 && y<0)
-    {
-        motor1.setSpeed(y); 
-        motor1.run(BACKWARD);
+    motor2.setSpeed(y);
+    motor2.run(FORWARD);
 
-        motor2.setSpeed(y); 
-        motor2.run(BACKWARD);
+    motor3.setSpeed(y);
+    motor3.run(BACKWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(FORWARD);
+    motor4.setSpeed(y);
+    motor4.run(BACKWARD);
+    delay(time);
+  }
 
-        motor4.setSpeed(y);
-        motor4.run(FORWARD);
-        delay(time);
-    }
-    else if(x==0 && y==0)
-    {
-        motor1.setSpeed(y); 
-        motor1.run(RELEASE);
+  else if ((x == 0) && (y <! 0))
+  {
+    motor1.setSpeed(y);
+    motor1.run(BACKWARD);
 
-        motor2.setSpeed(y); 
-        motor2.run(RELEASE);
+    motor2.setSpeed(y);
+    motor2.run(BACKWARD);
 
-        motor3.setSpeed(y); 
-        motor3.run(RELEASE);
+    motor3.setSpeed(y);
+    motor3.run(FORWARD);
 
-        motor4.setSpeed(y);
-        motor4.run(RELEASE);
-        delay(time);
-    }
+    motor4.setSpeed(y);
+    motor4.run(FORWARD);
+    delay(time);
+  }
+  else if ((x == 0) && (y == 0))
+  {
+    Serial.println("Deu TBM!!");
+    motor1.setSpeed(y);
+    motor1.run(RELEASE);
+
+    motor2.setSpeed(y);
+    motor2.run(RELEASE);
+
+    motor3.setSpeed(y);
+    motor3.run(RELEASE);
+
+    motor4.setSpeed(y);
+    motor4.run(RELEASE);
+    delay(time);
+  }
 }
 
-void setup(){
+void setup() {
   pinMode(led, OUTPUT);
 
   // Debug console
   Serial.begin(9600);
-  
+
   // Set ESP8266 baud rate
   EspSerial.begin(ESP8266_BAUD);
 
   Blynk.begin(auth, wifi, ssid, pass);
-  
+
   // Defines the Inicial Velocity
   // Defines the Stop Function
-    motor1.setSpeed(200);
-    motor1.run(RELEASE);
-    motor2.setSpeed(200);
-    motor2.run(RELEASE);
-    motor3.setSpeed(200);
-    motor3.run(RELEASE);
-    motor4.setSpeed(200);
-    motor4.run(RELEASE);
 }
 
-void loop(){
+void loop() {
   Blynk.run();
 }
 
-/* 
-Joystick (V0 and V1) 
-Led_Button (V3) 
+/*
+  Joystick (V0 and V1)
+  Led_Button (V3)
 */
 
 /* Pino Virtual Selecionado no Joystick
 
 */
-BLYNK_WRITE(V0){ 
+BLYNK_WRITE(V0) {
   int x = param[0].asInt();
   int y = param[1].asInt();
   Serial.print(y);
   Serial.print(x);
-  move(10, x, y);
+  mov(time, x, y);
 }
 
 /*
-BLYNK_WRITE(V1){ // X_Axis
+  BLYNK_WRITE(V1){ // X_Axis
   int x = param[0].asInt();
   Serial.print(x);
-  //analogWrite(pwm, x); 
-}
+  //analogWrite(pwm, x);
+  }
 */
 
 
 /*
- // Led
-BLYNK_WRITE(V3){
+  // Led
+  BLYNK_WRITE(V3){
   int l = param.asInt();
   Serial.print(l);
 
@@ -240,5 +234,5 @@ BLYNK_WRITE(V3){
   if(l == 0){
     digitalWrite(led, LOW);
   }
-}
+  }
 */
