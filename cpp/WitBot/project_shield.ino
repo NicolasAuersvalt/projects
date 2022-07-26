@@ -73,24 +73,7 @@ int mov(int time, int x, int y)
 
     // Accelerated Movement
 
-    if ((lim_nx < x < lim_x) && (y > starting_position)) // Frontal Movement
-    {
-        Serial.println("Frontal Movement");
-        motor1.setSpeed(y);
-        motor1.run(BACKWARD);
-
-        motor2.setSpeed(y);
-        motor2.run(BACKWARD);
-
-        motor3.setSpeed(y);
-        motor3.run(FORWARD);
-
-        motor4.setSpeed(y);
-        motor4.run(FORWARD);
-        delay(time);
-    }
-
-    else if ((x > starting_position) && (y > starting_position)) // Frontal Right Turn
+    if ((x > lim_x) && (y > starting_position)) // Frontal Right Turn
     {
         Serial.println("Frontal Right Turn"); // TESTE
 
@@ -109,7 +92,7 @@ int mov(int time, int x, int y)
         delay(time);
     }
 
-    else if ((x < starting_position) && (y > starting_position)) // Frontal Left Turn
+    else if ((x < lim_nx) && (y > starting_position)) // Frontal Left Turn
     {
         Serial.println("Frontal Left Turn");
 
@@ -129,53 +112,36 @@ int mov(int time, int x, int y)
 
     // Retograde Movement
 
-    else if ((lim_nx < x < lim_x) && (y < starting_position)) // Back Movement
-    {
-        Serial.println("Back Movement");
-        motor1.setSpeed(y);
-        motor1.run(FORWARD);
-
-        motor2.setSpeed(y);
-        motor2.run(FORWARD);
-
-        motor3.setSpeed(y);
-        motor3.run(BACKWARD);
-
-        motor4.setSpeed(y);
-        motor4.run(BACKWARD);
-        delay(time);
-    }
-
-    else if ((x > starting_position) && (y < starting_position)) // Back Right Turn
+    else if ((x > lim_x) && (y < starting_position)) // Back Right Turn
     {
         Serial.println("Back Right Turn");
-        motor1.setSpeed(y);
+        motor1.setSpeed(255-y);
         motor1.run(FORWARD);
 
-        motor2.setSpeed(y);
+        motor2.setSpeed(255-y);
         motor2.run(FORWARD);
 
-        motor3.setSpeed(y);
+        motor3.setSpeed(255-y);
         motor3.run(RELEASE);
 
-        motor4.setSpeed(y);
+        motor4.setSpeed(255-y);
         motor4.run(BACKWARD);
         delay(time);
     }
 
-    else if ((x < starting_position) && (y < starting_position)) // Back Left Turn
+    else if ((x < lim_nx) && (y < starting_position)) // Back Left Turn
     {
         Serial.println("Back Left Turn!");
         motor1.run(FORWARD);
-        motor1.setSpeed(y);
+        motor1.setSpeed(255-y);
 
-        motor2.setSpeed(y);
+        motor2.setSpeed(255-y);
         motor2.run(RELEASE);
 
-        motor3.setSpeed(y);
+        motor3.setSpeed(255-y);
         motor3.run(BACKWARD);
 
-        motor4.setSpeed(y);
+        motor4.setSpeed(255-y);
         motor4.run(BACKWARD);
         delay(time);
     }
@@ -194,6 +160,40 @@ int mov(int time, int x, int y)
 
         motor4.setSpeed(y);
         motor4.run(RELEASE);
+        delay(time);
+    }
+
+    else if ((lim_nx < x < lim_x) && (y > starting_position)) // Frontal Movement
+    {
+        Serial.println("Frontal Movement");
+        motor1.setSpeed(y);
+        motor1.run(BACKWARD);
+
+        motor2.setSpeed(y);
+        motor2.run(BACKWARD);
+
+        motor3.setSpeed(y);
+        motor3.run(FORWARD);
+
+        motor4.setSpeed(y);
+        motor4.run(FORWARD);
+        delay(time);
+    }
+
+    else if ((lim_nx < x < lim_x) && (y < starting_position)) // Back Movement
+    {
+        Serial.println("Back Movement");
+        motor1.setSpeed(255-y);
+        motor1.run(FORWARD);
+
+        motor2.setSpeed(255-y);
+        motor2.run(FORWARD);
+
+        motor3.setSpeed(255-y);
+        motor3.run(BACKWARD);
+
+        motor4.setSpeed(255-y);
+        motor4.run(BACKWARD);
         delay(time);
     }
 }
