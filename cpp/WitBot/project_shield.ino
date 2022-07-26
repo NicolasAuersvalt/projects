@@ -46,11 +46,8 @@ int time; // Delay Time
 
 //Servo servo_motor;
 
-int mov(int time, int xv, int yv) {
-
-  int x = (xv * 10) / 10;
-  int y = (yv * 10) / 10;
-  int starting_position = 12800;
+int mov(int time, int x, int y) {
+  int starting_position = 128;
   Serial.println("X: ");
   Serial.println(x);
   Serial.println("// Y: ");
@@ -73,35 +70,36 @@ int mov(int time, int xv, int yv) {
     Serial.println("Right Turn!!"); // TESTE
     
     // Start motor running (FORWARD AND BACKWARD)
-    motor1.run(RELEASE);
+    motor1.run(BACKWARD); // Left Frontal
     motor1.setSpeed(y);
      // Stopped
 
-    motor2.setSpeed(y);
+    motor2.setSpeed(y); // Left Back
     motor2.run(FORWARD);
 
-    motor3.setSpeed(y);
-    motor3.run(BACKWARD);
+    motor3.setSpeed(y); // Right Back 
+    motor3.run(FORWARD);
 
-    motor4.setSpeed(y);
-    motor4.run(BACKWARD);
+    motor4.setSpeed(y); // Right Frontal
+    motor4.run(RELEASE);
     delay(time);
   }
 
   else if ((x < starting_position) && (y > starting_position)) // Left Turn
   {
     Serial.println("Left Turn!!");
-    motor1.run(FORWARD);
+    
     motor1.setSpeed(y);
+    motor1.run(RELEASE);
     
     motor2.setSpeed(y);
-    motor2.run(RELEASE);
+    motor2.run(BACKWARD);
 
     motor3.setSpeed(y);
-    motor3.run(BACKWARD);
+    motor3.run(FORWARD);
 
     motor4.setSpeed(y);
-    motor4.run(BACKWARD);
+    motor4.run(FORWARD);
     delay(time);
   }
 
@@ -111,7 +109,41 @@ int mov(int time, int xv, int yv) {
   {
     Serial.println("ALAN!!");
     motor1.setSpeed(y);
-    motor1.run(RELEASE);
+    motor1.run(FORWARD);
+
+    motor2.setSpeed(y);
+    motor2.run(FORWARD);
+
+    motor3.setSpeed(y);
+    motor3.run(RELEASE);
+
+    motor4.setSpeed(y); // FRONTAL RIGHT 
+    motor4.run(BACKWARD);
+    delay(time);
+  }
+
+  else if ((x < starting_position) && (y < starting_position)) // Left Turn CELL
+  {
+    Serial.println("CELL!!");
+    motor1.run(FORWARD);
+    motor1.setSpeed(y);
+
+    motor2.setSpeed(y);
+    motor2.run(RELEASE);
+
+    motor3.setSpeed(y);
+    motor3.run(BACKWARD);
+
+    motor4.setSpeed(y);
+    motor4.run(BACKWARD);
+    delay(time);
+  }
+
+  else if ((x == starting_position) && (y > starting_position)) // BÃO
+  {
+    Serial.println("BÃO");
+    motor1.setSpeed(y);
+    motor1.run(BACKWARD);
 
     motor2.setSpeed(y);
     motor2.run(BACKWARD);
@@ -124,26 +156,9 @@ int mov(int time, int xv, int yv) {
     delay(time);
   }
 
-  else if ((x < starting_position) && (y < starting_position)) // Left Turn CELL
+  else if ((x == starting_position) && (y < starting_position)) // TUDO SIM
   {
-    Serial.println("CELL!!");
-    motor1.run(BACKWARD);
-    motor1.setSpeed(y);
-
-    motor2.setSpeed(y);
-    motor2.run(RELEASE);
-
-    motor3.setSpeed(y);
-    motor3.run(FORWARD);
-
-    motor4.setSpeed(y);
-    motor4.run(FORWARD);
-    delay(time);
-  }
-
-  else if ((x == starting_position) && (y > starting_position)) // BÃO
-  {
-    Serial.println("BÃO");
+    Serial.println("TUDO SIM");
     motor1.setSpeed(y);
     motor1.run(FORWARD);
 
@@ -157,28 +172,11 @@ int mov(int time, int xv, int yv) {
     motor4.run(BACKWARD);
     delay(time);
   }
-
-  else if ((x == starting_position) && (y < starting_position)) // TUDO SIM
-  {
-    Serial.println("TUDO SIM");
-    motor1.setSpeed(y);
-    motor1.run(BACKWARD);
-
-    motor2.setSpeed(y);
-    motor2.run(BACKWARD);
-
-    motor3.setSpeed(y);
-    motor3.run(FORWARD);
-
-    motor4.setSpeed(y);
-    motor4.run(FORWARD);
-    delay(time);
-  }
   else if ((x == starting_position) && (y == starting_position)) // ATA
   {
     Serial.println("ATA");
-    motor1.setSpeed(10);
-    motor1.run(FORWARD);
+    motor1.setSpeed(y);
+    motor1.run(RELEASE);
 
     motor2.setSpeed(y);
     motor2.run(RELEASE);
@@ -228,10 +226,12 @@ void loop() {
 /* Pino Virtual Selecionado no Joystick
 
 */
-BLYNK_WRITE(V1){ 
+BLYNK_WRITE(V0){ 
   int xv = param[0].asInt();
   int yv = param[1].asInt();
 
+  Serial.println("// xv: ");
+  Serial.print(xv);
   Serial.println("// yv: ");
   Serial.print(yv);
 
