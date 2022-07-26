@@ -20,6 +20,7 @@ char pass[] = "7707224527";
 
 #define EspSerial Serial1
 
+// ESP Pins
 SoftwareSerial EspSerial(9, 10); // RX, TX
 
 // Your ESP8266 baud rate:
@@ -38,207 +39,194 @@ const int max_range = 200; /* Valor máximo da velocidade */
 // Configurações dos Componentes
 #define led 2
 
-int time; // Delay Time
+// Delay Time
+int time; 
 
 // #define servo 9
 // #define trig 7
 // #define echo 6
 
-//Servo servo_motor;
+// Servo servo_motor;
 
-int mov(int time, int x, int y) {
-  int starting_position = 128;
-  Serial.println("X: ");
-  Serial.println(x);
-  Serial.println("// Y: ");
-  Serial.println(y);
-  
-  /*
-    - Frontal
-    motor1 - Right
-    motor2 - Left
+int mov(int time, int x, int y)
+{
+    int starting_position = 128;
+    int lim_nx = 108;
+    int lim_x = 148;
 
-    - Back
-    motor3 - Left
-    motor4 - Right
-  */
-  
-  // Accelerated Movement
+    Serial.println("X: ");
+    Serial.println(x);
+    Serial.println(" Y: ");
+    Serial.println(y);
 
-  if ((x > starting_position) && (y > starting_position)) // Right Turn
-  {
-    Serial.println("Right Turn!!"); // TESTE
-    
-    // Start motor running (FORWARD AND BACKWARD)
-    motor1.run(BACKWARD); // Left Frontal
-    motor1.setSpeed(y);
-     // Stopped
+    /*
+      Motors Position:
 
-    motor2.setSpeed(y); // Left Back
-    motor2.run(FORWARD);
+        motor1 - Frontal Left
 
-    motor3.setSpeed(y); // Right Back 
-    motor3.run(FORWARD);
+        motor2 - Back Left
 
-    motor4.setSpeed(y); // Right Frontal
-    motor4.run(RELEASE);
-    delay(time);
-  }
+        motor3 - Back Right
 
-  else if ((x < starting_position) && (y > starting_position)) // Left Turn
-  {
-    Serial.println("Left Turn!!");
-    
-    motor1.setSpeed(y);
-    motor1.run(RELEASE);
-    
-    motor2.setSpeed(y);
-    motor2.run(BACKWARD);
+        motor4 - Frontal Right
+    */
 
-    motor3.setSpeed(y);
-    motor3.run(FORWARD);
+    // Accelerated Movement
 
-    motor4.setSpeed(y);
-    motor4.run(FORWARD);
-    delay(time);
-  }
+    if ((lim_nx < x < lim_x) && (y > starting_position)) // Frontal Movement
+    {
+        Serial.println("Frontal Movement");
+        motor1.setSpeed(y);
+        motor1.run(BACKWARD);
 
-  // Retograde Movement
+        motor2.setSpeed(y);
+        motor2.run(BACKWARD);
 
-  else if ((x > starting_position) && (y < starting_position)) // Right Turn ALAN
-  {
-    Serial.println("ALAN!!");
-    motor1.setSpeed(y);
-    motor1.run(FORWARD);
+        motor3.setSpeed(y);
+        motor3.run(FORWARD);
 
-    motor2.setSpeed(y);
-    motor2.run(FORWARD);
+        motor4.setSpeed(y);
+        motor4.run(FORWARD);
+        delay(time);
+    }
 
-    motor3.setSpeed(y);
-    motor3.run(RELEASE);
+    else if ((x > starting_position) && (y > starting_position)) // Frontal Right Turn
+    {
+        Serial.println("Frontal Right Turn"); // TESTE
 
-    motor4.setSpeed(y); // FRONTAL RIGHT 
-    motor4.run(BACKWARD);
-    delay(time);
-  }
+        // Start motor running (FORWARD AND BACKWARD)
+        motor1.run(BACKWARD); // Frontal Left
+        motor1.setSpeed(y);
 
-  else if ((x < starting_position) && (y < starting_position)) // Left Turn CELL
-  {
-    Serial.println("CELL!!");
-    motor1.run(FORWARD);
-    motor1.setSpeed(y);
+        motor2.setSpeed(y); // Back Left
+        motor2.run(FORWARD);
 
-    motor2.setSpeed(y);
-    motor2.run(RELEASE);
+        motor3.setSpeed(y); // Back Right
+        motor3.run(FORWARD);
 
-    motor3.setSpeed(y);
-    motor3.run(BACKWARD);
+        motor4.setSpeed(y);  // Frontal Right
+        motor4.run(RELEASE); // Stopped
+        delay(time);
+    }
 
-    motor4.setSpeed(y);
-    motor4.run(BACKWARD);
-    delay(time);
-  }
+    else if ((x < starting_position) && (y > starting_position)) // Frontal Left Turn
+    {
+        Serial.println("Frontal Left Turn");
 
-  else if ((x == starting_position) && (y > starting_position)) // BÃO
-  {
-    Serial.println("BÃO");
-    motor1.setSpeed(y);
-    motor1.run(BACKWARD);
+        motor1.setSpeed(y);
+        motor1.run(RELEASE);
 
-    motor2.setSpeed(y);
-    motor2.run(BACKWARD);
+        motor2.setSpeed(y);
+        motor2.run(BACKWARD);
 
-    motor3.setSpeed(y);
-    motor3.run(FORWARD);
+        motor3.setSpeed(y);
+        motor3.run(FORWARD);
 
-    motor4.setSpeed(y);
-    motor4.run(FORWARD);
-    delay(time);
-  }
+        motor4.setSpeed(y);
+        motor4.run(FORWARD);
+        delay(time);
+    }
 
-  else if ((x == starting_position) && (y < starting_position)) // TUDO SIM
-  {
-    Serial.println("TUDO SIM");
-    motor1.setSpeed(y);
-    motor1.run(FORWARD);
+    // Retograde Movement
 
-    motor2.setSpeed(y);
-    motor2.run(FORWARD);
+    else if ((lim_nx < x < lim_x) && (y < starting_position)) // Back Movement
+    {
+        Serial.println("Back Movement");
+        motor1.setSpeed(y);
+        motor1.run(FORWARD);
 
-    motor3.setSpeed(y);
-    motor3.run(BACKWARD);
+        motor2.setSpeed(y);
+        motor2.run(FORWARD);
 
-    motor4.setSpeed(y);
-    motor4.run(BACKWARD);
-    delay(time);
-  }
-  else if ((x == starting_position) && (y == starting_position)) // ATA
-  {
-    Serial.println("ATA");
-    motor1.setSpeed(y);
-    motor1.run(RELEASE);
+        motor3.setSpeed(y);
+        motor3.run(BACKWARD);
 
-    motor2.setSpeed(y);
-    motor2.run(RELEASE);
+        motor4.setSpeed(y);
+        motor4.run(BACKWARD);
+        delay(time);
+    }
 
-    motor3.setSpeed(y);
-    motor3.run(RELEASE);
+    else if ((x > starting_position) && (y < starting_position)) // Back Right Turn
+    {
+        Serial.println("Back Right Turn");
+        motor1.setSpeed(y);
+        motor1.run(FORWARD);
 
-    motor4.setSpeed(y);
-    motor4.run(RELEASE);
-    delay(time);
-  }
+        motor2.setSpeed(y);
+        motor2.run(FORWARD);
+
+        motor3.setSpeed(y);
+        motor3.run(RELEASE);
+
+        motor4.setSpeed(y);
+        motor4.run(BACKWARD);
+        delay(time);
+    }
+
+    else if ((x < starting_position) && (y < starting_position)) // Back Left Turn
+    {
+        Serial.println("Back Left Turn!");
+        motor1.run(FORWARD);
+        motor1.setSpeed(y);
+
+        motor2.setSpeed(y);
+        motor2.run(RELEASE);
+
+        motor3.setSpeed(y);
+        motor3.run(BACKWARD);
+
+        motor4.setSpeed(y);
+        motor4.run(BACKWARD);
+        delay(time);
+    }
+
+    else if ((x == starting_position) && (y == starting_position)) // Rest
+    {
+        Serial.println("Resting");
+        motor1.setSpeed(y);
+        motor1.run(RELEASE);
+
+        motor2.setSpeed(y);
+        motor2.run(RELEASE);
+
+        motor3.setSpeed(y);
+        motor3.run(RELEASE);
+
+        motor4.setSpeed(y);
+        motor4.run(RELEASE);
+        delay(time);
+    }
 }
 
-void setup() {
-  motor1.setSpeed(200);
-  motor1.run(RELEASE);
-  motor2.setSpeed(200);
-  motor2.run(RELEASE);
-  motor3.setSpeed(200);
-  motor3.run(RELEASE);
-  motor4.setSpeed(200);
-  motor4.run(RELEASE);
-  
-  // Debug console
-  Serial.begin(9600);
+void setup()
+{
+    // Debug console
+    Serial.begin(9600);
 
-  // Set ESP8266 baud rate
-  EspSerial.begin(ESP8266_BAUD);
+    // Set ESP8266 baud rate
+    EspSerial.begin(ESP8266_BAUD);
 
-  Blynk.begin(auth, wifi, ssid, pass);
-
-  // Defines the Inicial Velocity
-  // Defines the Stop Function
-
-  
+    Blynk.begin(auth, wifi, ssid, pass);
 }
 
-void loop() {
-  Blynk.run();
+void loop()
+{
+    Blynk.run();
 }
 
 /*
-  Joystick (V0 and V1)
-  Led_Button (V3)
+  Pins List:
+    Joystick (V0)
+    Led_Button (V3)
 */
 
-/* Pino Virtual Selecionado no Joystick
-
-*/
-BLYNK_WRITE(V0){ 
-  int xv = param[0].asInt();
-  int yv = param[1].asInt();
-
-  Serial.println("// xv: ");
-  Serial.print(xv);
-  Serial.println("// yv: ");
-  Serial.print(yv);
-
-  mov(time, xv, yv);
+// Joystick Virtual Pin
+BLYNK_WRITE(V0)
+{
+    int x = param[0].asInt();
+    int y = param[1].asInt();
+    mov(time, x, y);
 }
-
-
 
 /*
   BLYNK_WRITE(V1){ // X_Axis
@@ -246,10 +234,7 @@ BLYNK_WRITE(V0){
   Serial.print(x);
   //analogWrite(pwm, x);
   }
-*/
 
-
-/*
   // Led
   BLYNK_WRITE(V3){
   int l = param.asInt();
