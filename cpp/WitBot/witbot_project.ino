@@ -1,10 +1,16 @@
-// Configurações passadas pelo App Blynk
+// Developed by Nícolas Auersvalt
+/*
+Robotic Car with Arm controlled by Blink IOT.
+
+Current Version(1.1)
+*/
+
+// Blink App
 #define BLYNK_TEMPLATE_ID "TMPLrG9kgao2"
 #define BLYNK_DEVICE_NAME "ESP8266"
 #define BLYNK_AUTH_TOKEN "NpE9rh2CVCOxYIGL-78m3zfKID46Rtvh"
 #define BLYNK_PRINT Serial
 
-// Bibliotecas
 #include <ESP8266_Lib.h>
 #include <BlynkSimpleShieldEsp8266.h>
 #include <SoftwareSerial.h>
@@ -15,8 +21,8 @@ char auth[] = BLYNK_AUTH_TOKEN;
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Nicolas";
-char pass[] = "7707224527";
+char ssid[] = "removed_for_security";
+char pass[] = "removed_for_security";
 
 #define EspSerial Serial1
 
@@ -28,7 +34,7 @@ SoftwareSerial EspSerial(9, 10); // RX, TX
 
 ESP8266 wifi(&EspSerial);
 
-// Define o Motor em M1
+// Define motors in M[1-4] output
 AF_DCMotor motor1(1);
 AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
@@ -36,12 +42,13 @@ AF_DCMotor motor4(4);
 
 const int max_range = 200; /* Valor máximo da velocidade */
 
-// Configurações dos Componentes
+// Components (soon)
 #define led 2
 
 // Delay Time
 int time; 
 
+// Arm Motors (soon)
 // #define servo 9
 // #define trig 7
 // #define echo 6
@@ -53,11 +60,6 @@ int mov(int time, int x, int y)
     int starting_position = 128;
     int lim_nx = 108;
     int lim_x = 148;
-
-    Serial.println("X: ");
-    Serial.println(x);
-    Serial.println(" Y: ");
-    Serial.println(y);
 
     /*
       Motors Position:
@@ -71,11 +73,11 @@ int mov(int time, int x, int y)
         motor4 - Frontal Right
     */
 
-    // Accelerated Movement
+    // Accelerated Motion
 
     if ((x > lim_x) && (y > starting_position)) // Frontal Right Turn
     {
-        Serial.println("Frontal Right Turn"); // TESTE
+        Serial.println("Frontal Right Turn");
 
         // Start motor running (FORWARD AND BACKWARD)
         motor1.run(BACKWARD); // Frontal Left
@@ -95,7 +97,6 @@ int mov(int time, int x, int y)
     else if ((x < lim_nx) && (y > starting_position)) // Frontal Left Turn
     {
         Serial.println("Frontal Left Turn");
-
         motor1.setSpeed(y);
         motor1.run(RELEASE);
 
@@ -110,7 +111,7 @@ int mov(int time, int x, int y)
         delay(time);
     }
 
-    // Retograde Movement
+    // Retograde Motion
 
     else if ((x > lim_x) && (y < starting_position)) // Back Right Turn
     {
@@ -165,7 +166,7 @@ int mov(int time, int x, int y)
 
     else if ((lim_nx < x < lim_x) && (y > starting_position)) // Frontal Movement
     {
-        Serial.println("Frontal Movement");
+        Serial.println("Frontal Motion");
         motor1.setSpeed(y);
         motor1.run(BACKWARD);
 
@@ -182,7 +183,7 @@ int mov(int time, int x, int y)
 
     else if ((lim_nx < x < lim_x) && (y < starting_position)) // Back Movement
     {
-        Serial.println("Back Movement");
+        Serial.println("Back Motion");
         motor1.setSpeed(255-y);
         motor1.run(FORWARD);
 
@@ -217,24 +218,19 @@ void loop()
 /*
   Pins List:
     Joystick (V0)
-    Led_Button (V3)
 */
 
-// Joystick Virtual Pin
+// Joystick Virtual Pins
 BLYNK_WRITE(V0)
 {
-    int x = param[0].asInt();
-    int y = param[1].asInt();
+    int x = param[0].asInt(); // X Axis
+    int y = param[1].asInt(); // Y Axis
     mov(time, x, y);
 }
 
-/*
-  BLYNK_WRITE(V1){ // X_Axis
-  int x = param[0].asInt();
-  Serial.print(x);
-  //analogWrite(pwm, x);
-  }
+// Coming Soon!
 
+/*
   // Led
   BLYNK_WRITE(V3){
   int l = param.asInt();
