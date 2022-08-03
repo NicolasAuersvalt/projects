@@ -1,8 +1,13 @@
-// Developed by Nícolas Auersvalt
 /*
+==============================================
+
+Developed by Nícolas Auersvalt
+
 Robotic Car with Arm controlled by Blink IOT.
 
 Current Version(1.1)
+
+==============================================
 */
 
 // Blink App
