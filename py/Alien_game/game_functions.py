@@ -1,11 +1,11 @@
 import sys
 import unittest
 import pygame
-
-from Projeto_Game import bullet
+from bullet import *
 from ship import *
 from settings import *
 from bullet import *
+from alien import Alien
 
 
 ''' Pressionamento de teclas '''
@@ -55,13 +55,14 @@ def check_events(ai_settings, screen, ship, bullets):
 
 
 
-def update_screen(ai_settings, screen, ship, bullets): # Atualiza as imagens na tela e alterna para a nova tela.
+def update_screen(ai_settings, screen, ship, aliens, bullets): # Atualiza as imagens na tela e alterna para a nova tela.
     # Redesenha a tela a cada passagem pelo laço
     screen.blit(Settings().bg, (0, 0))
     for bullet in bullets.sprites():
         bullet.bullet_update()
         bullet.print_bullet()
-    ship.blitme()
+    ship.blitme() # Apareça, Nave
+    aliens.draw(screen) # Apareça, Frota de Aliens
 
     pygame.display.flip()
 
@@ -73,3 +74,42 @@ def update_bullets(bullets):
 def fire_bullets(ai_settings, screen, ship, bullets):
     new_bullet = Bullet(ai_settings, screen, ship)
     bullets.add(new_bullet)
+
+def fleet(ai_settings, screen, aliens):
+    """ 
+    - Cria frota alien 
+    
+    Cria um alienígena e calcula o número de alienígenas
+    em uma linha
+    
+    O espaçamento entre os alienígenas é igual à largura 
+    de um alien
+    """
+    # Criamos um alien teste, então não add à frota
+    alien = Alien(ai_settings, screen)
+
+    # Adquirimos a largura a partir do seu atributo rect
+    alien_width = alien.rect.width
+
+    # Calculamos o espaço horizontal disponível pros outros aliens e quantos cabem
+    available_space_x = Settings().screen_x - 2 * alien_width
+
+    # Não queremos criar frota real, apenas inteira
+    number_aliens_x = int(available_space_x / (2 * alien_width))
+
+    # Cria a primeira linha de aliens e posiciona o alien nela
+    for alien in range(number_aliens_x):
+
+        # Cada alien é inserido à direita, com um espaço correspondente à
+        # largura de um alien, a partir da margem esquerda
+        alien = Alien(ai_settings, screen)
+
+        # Em seguida multiplicamos por dois para levar em consideração o 
+        # espaço ocupado por cada alien, incluindo o espaço vazio à direita
+        # e multiplicamos esse valor pela posição do alien na linha
+        alien.x = alien_width + 2 * alien_width
+        
+        alien.rect.x = alien.x
+
+        # Então adicionamos cada alien ao grupo/frota
+        aliens.add(alien)
