@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web_site',
-    'bootstrap4',
+    'bootstrap3',
+    'django_forms_bootstrap',
 
 ]
 
@@ -137,4 +138,15 @@ STATICFILES_FINDERS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+BOOTSTRAP3 ={
+    'include_jquery': True,
+    } 
+
+if os.getcwd()=='/app': # Caso o servidor seja ligado
+    import dj_database_url
+    DATABASES={'default': dj_database_url.config(default='postgres://localhost')}
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    ALLOWED_HOSTS = ['nicolassite.herokuapp.com']
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
+    STATIC_ROOT = 'staticfiles'
+    STATIC_DIRS = (os.path.join(BASE_DIR, 'static'), )
