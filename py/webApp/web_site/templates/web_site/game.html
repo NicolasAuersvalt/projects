@@ -3,42 +3,47 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+
+  <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Alien Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
-</head>
-<body>
+  </head>
+
+  <body>
     {%block content%}
-        <div class=container>
-            <div id="carouselExampleControls" class="carousel slide position-absolute start-50 top-50 translate-middle" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <p class="text-center fs-2"> Alien Game:</p>
-                  <div class="carousel-item active">
-                    <img src="{%static 'images/bg1.png'%}" class="d-block" alt="alien">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{%static 'images/foto.jpeg'%}" class="d-block" alt="stardew">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-                <p class="text-center fs-5"> Esse é um jogo de nave contra aliens. O mundo está tomado por Aliens e você precisa
-                    eliminá-los antes do eclipse, pois algo ruim pode acontecer.</p>
-              </div>
+    <div class="container">
+      <center>
+        <br>
+        <div class="container fs-2 mt-5">
+          <p class="text-center"> Alien Game </p>
         </div>
-        {%endblock content%}
-</body>
+
+        <div class="card" style="width: 40rem;">
+          <img src="{%static 'images/bg1.png'%}" class="card-img" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Sobre</h5>
+            <p class="card-text">Esse é um projeto experimental de um jogo em que Alien estão tentando eliminar
+              a humanidade da terra, e seu objetivo é derrotar a maior quantidade de alienígenas possível. O jogo
+              se passa no espaço, o jogador controla diferentes naves que contam com características únicas.
+            </p>
+            <img src="{%static 'images/nave.png'%}" alt="...">
+            <p class="card-text"><br></div>
+            <p class="card-text">Por enquanto, o jogo está em desenvolvimento, possívelmente estará disponível
+              entre dezembro e fevereiro.
+            <p>
+              <p class="card-text">Link de Download (Em Breve)</p>
+              <a class="card-text" href="https://www.instagram.com/nic.auersvalt/?fbclid=IwAR3LJJ8xl_Kd5FFOT_BQqM3hkuZslO-11zcxYUJgPLsy7uYtzO8pKEIP9qw">Instagram de Projetos</a>
+            <p class="card-text"><small class="text-muted">Versão 1.1</small></p>
+          </div>
+
+
+      </center>
+    </div>
+    {%endblock content%}
+  </body>
+
 </html>

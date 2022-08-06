@@ -1,18 +1,26 @@
-{% load bootstrap3 %}
-{% load static%}
+{% load django_bootstrap5 %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Base</title>
+        <title>Nícolas Auervalt</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link href={%static '/images/foto.jpeg' %}>
         <script src='main.js'></script>
+
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <link rel="mask-icon" href="% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
     </head>
 
     <div class='container'>
@@ -22,7 +30,7 @@
             <div class="mx-auto" style="width: 200px;"></div>
             <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{% url 'web_site:index'%}">Nícolas' Site</a>
+                    <a class="navbar-brand" href="{% url 'web_site:index'%}">Nícolas' Website</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -30,24 +38,12 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'web_site:witbot'%}">WitBot</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'web_site:game'%}">Game</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
                             </li>
                         </ul>
                     </div>

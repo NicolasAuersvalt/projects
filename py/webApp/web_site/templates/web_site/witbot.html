@@ -1,47 +1,75 @@
 {%extends 'web_site/base.html'%}
-{%load static%}
+{% load django_bootstrap5 %}
+{% load static %}
 
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>WitBot</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-        <script src='main.js'></script>
-    </head>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>WitBot</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+  </head>
 
-    <body>
-        {%block content%}
-        <div class=container>
-            <div id="carouselExampleControls" class="carousel slide position-absolute start-50 top-50 translate-middle" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <p class="text-center fs-2"> WitBot:</p>
-                    <img src="{%static 'images/robo.png'%}" class="d-block" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-                <p class="text-center fs-5"> Este é um projeto de uma Plataforma Robótica com garras, sensor ultrassônico, ESP8266 e Led. Possui Chassi
-                    4w, está baseada em diodo.</p>
-              </div>
+  <body>
+    {%block content%}
+    <div class="container">
+      <center>
+        <br>
+        <div class="container fs-2 mt-5">
+          <p class="text-center"> WitBot</p>
         </div>
-        {%endblock content%}
-    </body>
+
+        <div class="card" style="width: 40rem;">
+          <img src="{%static 'images/robo3.png'%}" class="card-img" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Geral</h5>
+            <p class="card-text">Esse é o WitBot, um projeto de chassi robótico controlado pelo aplicativo Blynk e
+              conta com um braço robótico. Além disso, entre seus componentes se destacam:
+              Motor Shield L293D; ESP8266; 4 Pilhas 1.2v e 1 Pilha 9v, Arduino Uno R3. Entretanto, sua versão 1.1
+              não conta com as funcionalidades do braço, mas as versões futuras vão trazer.
+            </p>
+            <p class="card-text"><small class="text-muted">Versão 1.1</small></p>
+          </div>
+        </div>
+
+        <div class="card" style="width: 40rem;">
+          <img src="{%static 'images/robo2.png'%}" class="card-img" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Funcionalidades</h5>
+            <p class="card-text">Separamos suas funcionalidades em duas partes, chassi e braço.
+            <p class="card-text">Chassi: Movimentação frontal ou retrógrada, acelerada ou retardada, e curvas ou repouso. Sua aceleração é determinada pelo deslocamento do Joystick no Blynk,
+            se caso não houver deslocamento, então haverá repouso.</p>
+            <p class="card-text">Braço: Giro em até 180° sobre sua base, extensão e retração do braço,
+               abertura e fechamento da garra. O giro sobre a base é determinado pelo deslocamento no eixo x
+              do Joystick, enquanto que sua extensão braçal é pelo eixo y, e a garra pelo pressionamento do botão.</p>
+            </p>
+            <p class="card-text"><small class="text-muted">Versão 1.1</small></p>
+          </div>
+        </div>
+
+        <div class="card" style="width: 40rem;">
+          <img src="{%static 'images/robo.png'%}" class="card-img" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Futuro</h5>
+            <p class="card-text">Na versão 1.0, o WitBot era composto apenas do chassi, mas tinha características
+              únicas como garra robótica, sensor ultrassônico e led. O led acendia conforme a abertura da garra fosse acionada e
+              o sensor limitava o movimento do chassi próximo a qualquer obstáculos.
+            </p>
+            <p class="card-text">No futuro, haverão as funcionalidades da versão 1.1, com exceção da garra.</p>
+            <a class="card-text" href="https://github.com/NicolasAuersvalt/projects/tree/main/cpp/WitBot?fbclid=IwAR3f85hEK2-6QIvUeqnxaqjCSbc4u-z2Sk9kAlkD9sOZOTRxmfZlwslDyZw">Repositório do Projeto</a>
+            <p class="card-text"><p>
+            <a class="card-text" href="https://www.instagram.com/nic.auersvalt/?fbclid=IwAR3LJJ8xl_Kd5FFOT_BQqM3hkuZslO-11zcxYUJgPLsy7uYtzO8pKEIP9qw">Instagram de Projetos</a>
+
+            <p class="card-text"><small class="text-muted">Version 1.0</small></p>
+          </div>
+        </div>
+      </center>
+    </div>
+    {%endblock content%}
+  </body>
 
 </html>
