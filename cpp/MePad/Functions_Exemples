@@ -13,6 +13,10 @@
   gerar deslocamento, mas para o mínimo a fim de
   otimizar e aumentar o deslocamento do meped.
 
+  Além disso, a função dança está recebendo valor
+  ang_padrao na descida, que pode ser substituído
+  por ang_min.
+
 */
 
 // Referências de Funções
