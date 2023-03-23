@@ -4,6 +4,19 @@
   Robotic Car with Arm controlled by Blink IOT.
   Current Version (1.0)
   ==============================================
+
+  New Function (1.1) - Movimentação Frontal
+
+  (1.2)
+  Para uma nova versão, deve-se testar voltar
+  o ângulo da base não para o padrão, para poder
+  gerar deslocamento, mas para o mínimo a fim de
+  otimizar e aumentar o deslocamento do meped.
+
+  Além disso, a função dança está recebendo valor
+  ang_padrao na descida, que pode ser substituído
+  por ang_min.
+
 */
 
 #include <Servo.h>
