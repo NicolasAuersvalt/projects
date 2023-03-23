@@ -22,160 +22,223 @@
 ==============================================
 */
 /*
-  void motor_1(){
 
-    // Espátula Sobe
+  // Função Atual (Dança)
+ 
+  else if (indice == 1){
+    Serial.print("Passo 2");
+    Serial.println();
+    passo_2();
+  }
+  
+  else if (indice == 2){
+    Serial.print("Passo 3");
+    Serial.println();
+    passo_3();   
+  }
+  
+  else if (indice == 3){
+    Serial.print("Passo 4");
+    Serial.println();
+    passo_4();
+  }
+  
+  else if (indice == 4){
+    Serial.print("Estabilizando...");
+    Serial.println();
+    estabilizacao();   
+  }
+}
+
+  void passo_1(){
+
+// 1° Passo
+  
+    1° Etapa
+  
+    // Espátula sobe
     Serial.print("Subida");
     Serial.println();
     delay(tmp);
-
-    myservoe1.write(ang_sub);
+    
+    myservoe1.write(ang_sub);  
     delay(tmp);
-
+    
     Serial.print("Subida OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    2° Etapa
+    
     // Base Gira
-    Serial.print("Giro da Base");
+    Serial.print("Giro Máximo");
     Serial.println();
     delay(tmp);
-
+    
     myservob1.write(ang_lim_max);
     delay(tmp);
-
-    Serial.print("Giro da Base OK");
+    
+    Serial.print("Giro Máximo OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    3° Etapa
+  
     // Espátula Desce
     Serial.print("Descida");
     Serial.println();
     delay(tmp);
-
-    myservoe1.write(ang_padrao);
+    
+    myservoe1.write(ang_padrao);  
     delay(tmp);
-
+    
     Serial.print("Descida OK");
     Serial.println();
     delay(tmp_intervalo);
-    indice = 1; // Próxima Etapa
+    indice = 1;
   }
 
-  void motor_2(){
+// 2° Passo
+  
+  void passo_2(){
+
+    1° Etapa
+  
     // Espátula sobe
     Serial.print("Subida");
     Serial.println();
     delay(tmp);
-
-    myservoe2.write(ang_sub);
+    
+    myservoe2.write(ang_sub);  
     delay(tmp);
-
+    
     Serial.print("Subida OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    2° Etapa
+    
     // Base Gira
-    Serial.print("Giro da Base");
+    Serial.print("Giro Máximo");
     Serial.println();
     delay(tmp);
-
+    
     myservob2.write(ang_lim_max);
     delay(tmp);
-
-    Serial.print("Giro da Base OK");
+    
+    Serial.print("Giro Máximo OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    3° Etapa
+    
     // Espátula Desce
     Serial.print("Descida");
     Serial.println();
     delay(tmp);
-
-    myservoe2.write(ang_padrao);
+    
+    myservoe2.write(ang_padrao);  
     delay(tmp);
-
+    
     Serial.print("Descida OK");
     Serial.println();
     delay(tmp_intervalo);
-    indice = 2; //Próxima Etapa
+    indice = 2;
   }
 
-  void motor_3(){
+// 3° Passo
+  
+  void passo_3(){
+
+    1° Etapa
+  
     // Espátula sobe
     Serial.print("Subida");
     Serial.println();
     delay(tmp);
-
-    myservoe3.write(ang_sub);
+    
+    myservoe3.write(ang_sub);  
     delay(tmp);
-
+    
     Serial.print("Subida OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    2° Etapa
+    
     // Base Gira
-    Serial.print("Giro da Base");
+    Serial.print("Giro Máximo");
     Serial.println();
     delay(tmp);
-
+    
     myservob3.write(ang_lim_max);
     delay(tmp);
-
-    Serial.print("Giro da Base OK");
+    
+    Serial.print("Giro Máximo OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    3° Etapa
+    
     // Espátula Desce
     Serial.print("Descida");
     Serial.println();
     delay(tmp);
-
-    myservoe3.write(ang_padrao);
+    
+    myservoe3.write(ang_padrao);  
     delay(tmp);
-
+    
     Serial.print("Descida OK");
     Serial.println();
     delay(tmp_intervalo);
-    indice = 3; //Próxima Etapa
+    indice = 3;
   }
 
-  void motor_4(){
+// 4° Passo
+  
+  void passo_4(){
+
+    1° Etapa
+  
     // Espátula sobe
     Serial.print("Subida");
     Serial.println();
     delay(tmp);
-
-    myservoe4.write(ang_sub);
+    
+    myservoe4.write(ang_sub);  
     delay(tmp);
-
+    
     Serial.print("Subida OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    2° Etapa
+    
     // Base Gira
-    Serial.print("Giro da Base");
+    Serial.print("Giro Máximo");
     Serial.println();
     delay(tmp);
-
+    
     myservob4.write(ang_lim_max);
     delay(tmp);
-
-    Serial.print("Giro da Base OK");
+    
+    Serial.print("Giro Máximo OK");
     Serial.println();
     delay(tmp_intervalo);
 
+    3° Etapa
+  
     // Espátula Desce
     Serial.print("Descida");
     Serial.println();
     delay(tmp);
-
-    myservoe4.write(ang_padrao);
+    
+    myservoe4.write(ang_padrao);  
     delay(tmp);
-
+    
     Serial.print("Descida OK");
     Serial.println();
-    delay(tmp_intervalo);
+    delay(tmp_intervalo);    
     indice = 4;
   }
 
@@ -201,8 +264,7 @@
 ==============================================
  Movimentação para Frente
 ==============================================
-*/
-/* 
+
 Para o entendimento dessa função, inicialmente, é necessário ter em mente a posição dos motores:
 
 Espátulas:
@@ -486,7 +548,7 @@ estão erguidas.
     indice = 5; // Próximo Passo
   }
 
-// 6° Passo:
+// 6° Passo
 
   void passo_6(){
     
@@ -642,9 +704,4 @@ estão erguidas.
     delay(tmp_intervalo);
     indice = 0; // Etapa Inicial
   }
-
-
-
-
-
 */
