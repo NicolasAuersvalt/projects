@@ -345,7 +345,7 @@ void passo_6() {
   Serial.println();
   delay(tmp);
 
-  myservob4.write(ang_min);
+  myservob4.write(ang_lim_min);
   delay(tmp);
 
   Serial.print("Giro Mínimo OK");
@@ -473,8 +473,6 @@ void passo_9() {
 
   indice = 9; //Próximo Passo
 }
-}
-
 
 void estabilizacao() {
   Serial.print("Estabilização");
