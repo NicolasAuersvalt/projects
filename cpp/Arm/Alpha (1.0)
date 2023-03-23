@@ -1,0 +1,120 @@
+/*
+  ==============================================
+  Code developed by Nícolas Auersvalt
+  Project Robotic Arm with Claw
+  Current Version (1.0)
+  ==============================================
+*/
+/*
+
+  Será necessário testar os ângulos limites da garra
+  e depois substituir os valores em claw_min_lim e 
+  claw_max_lim.
+
+  Pensar em um modo de otimizar a função da garra
+  pois o código lerá toda vez a mesma função.
+
+  É necessário atualizar o pino que o motor da
+  garra está conectada.
+
+  Verificar se por estar conectado a um pino
+  analógico, a garra vai imprimir valores digitais
+  ou analógicos e converter esse valor utilizando
+  uma função map diretamente no valor mínimo limite
+  e máximo limite.
+
+*/
+
+#include <Servo.h>
+
+// Micro Servos
+Servo left; // Left Side Arm
+Servo right; // Right Side Arm
+Servo bottom; // Base Servo 
+Servo top; // Claw Servo
+
+// Joystick
+#define axis_y A2
+#define axis_x A3
+#define button 6
+
+// Limites Máximos
+int right_max_lim = 120;
+int left_max_lim = 73;
+
+// Limites Mínimos
+int right_min_lim = 20;
+int left_min_lim = 20;
+
+// Limites da Base
+int base_min_lim = 1;
+int base_max_lim = 180;
+
+// Limites das garras
+int claw_min_lim = ;
+int claw_max_lim = ;
+
+// Tempos de Delays
+const int tmp = 1000;
+const int tmp_motors = 40;
+
+void setup(){
+
+  Serial.begin(9600);
+
+  // Pins
+  left.attach(2);
+  right.attach(3);
+  bottom.attach(4);
+  //claw.attach(?);
+
+  // Joystick
+  pinMode(axis_x, INPUT);
+  pinMode(axis_y, INPUT);
+  pinMode(button, INPUT);
+}
+
+void loop(){
+  
+  // Leitura dos pinos
+  int angle_l = analogRead(0);
+  int angle_r = analogRead(1);
+  
+  // Leitura do Botão do Joystick
+  int btn = digitalRead(6);  
+
+  // Abrir e Fechar Garras
+  if (btn==1){
+    bottom.write(claw_max_lim);
+    delay(tmp_motors);    
+  } 
+  else{
+    bottom.write(claw_min_lim);
+    delay(tmp_motors);    
+  }
+
+  // Leitura e convesão para dois limites da Base
+  base_ang = map(analogRead(axis_x), 0, 1023, base_max_lim, base_max_lim);
+  
+  // Conversão da voltagem Analógica para a Analógica dos Lados
+  left_angle = map(angle_l, 0, 1023, left_min_lim, left_max_lim); // Altura 
+  right_angle = map(angle_r, 0, 1023, right_min_lim, right_max_lim); // Profundidade
+  
+  Serial.println("Profundidade: ");
+  Serial.println(altura);
+  
+  Serial.println("Altura: ");
+  Serial.println(profundidade);
+  
+  // Gira o Motor da Base
+  bottom.write(base_ang);
+  delay(tmp_motors);
+
+  // Gira o Motor da Esquerda
+  left.write(left_angle);
+  delay(tmp_motors);
+
+  // Gira o Motor da Direita
+  right.write(right_angle);
+  delay(tmp_motors);
+}
