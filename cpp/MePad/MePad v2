@@ -1,3 +1,13 @@
+/*
+  ==============================================
+  Code developed by Nícolas Auersvalt
+  Project mePed V2 by  Spierce Technologies, LLC
+  (www.meped.io)
+  Current Version (1.0)
+  ==============================================
+*/
+
+
 #include <Servo.h>
 
 // Base
