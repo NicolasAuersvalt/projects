@@ -1,6 +1,4 @@
 #include <Servo.h>
-
-
 Servo myservob1;
 Servo myservob2;
 Servo myservob3;
@@ -21,7 +19,6 @@ int ang_sub = 100;
 int ang_des = 80;
 int ang_padrao = 90;
 int indice = 0;
-
 void setup() {
   Serial.begin(9600);
   myservob1.attach(2);
@@ -33,7 +30,6 @@ void setup() {
   myservoe3.attach(8);
   myservoe4.attach(9);
 }
-
 void loop() {
   if (indice == 0) {
     myservob1.write(90);
@@ -55,55 +51,44 @@ void loop() {
     Serial.print("Motor 1");
     Serial.println();
     passo_1();
-  }
-  else if (indice == 1) {
+  } else if (indice == 1) {
     Serial.print("Passo 2");
     Serial.println();
     passo_2();
-  }
-  else if (indice == 2) {
+  } else if (indice == 2) {
     Serial.print("Passo 3");
     Serial.println();
     passo_3();
-  }
-  else if (indice == 3) {
+  } else if (indice == 3) {
     Serial.print("Passo 4");
     Serial.println();
     passo_4();
-  }
-  else if (indice == 4) {
+  } else if (indice == 4) {
     Serial.print("Passo 5");
     Serial.println();
     passo_5();
-  }
-  else if (indice == 5) {
+  } else if (indice == 5) {
     Serial.print("Passo 6");
     Serial.println();
     passo_6();
-  }
-  else if (indice == 6) {
+  } else if (indice == 6) {
     Serial.print("Passo 7");
     Serial.println();
     passo_7();
-  }
-  else if (indice == 7) {
+  } else if (indice == 7) {
     Serial.print("Passo 8");
     Serial.println();
     passo_8();
-  }
-  else if (indice == 8) {
+  } else if (indice == 8) {
     Serial.print("Passo 9");
     Serial.println();
     passo_9();
-  }
-  else if (indice == 9) {
+  } else if (indice == 9) {
     Serial.print("Estabilizando...");
     Serial.println();
     estabilizacao();
   }
-}
-
-void passo_1() {
+} void passo_1() {
   Serial.print("Subida");
   Serial.println();
   delay(tmp);
@@ -129,9 +114,7 @@ void passo_1() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 1; // Próximo Passo
-}
-
-void passo_2() {
+} void passo_2() {
   Serial.print("Subida");
   Serial.println();
   delay(tmp);
@@ -157,9 +140,7 @@ void passo_2() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 2;
-}
-
-void passo_3() {
+} void passo_3() {
   Serial.print("Subida");
   Serial.println();
   delay(tmp);
@@ -177,9 +158,7 @@ void passo_3() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 3;
-}
-
-void passo_4() {
+} void passo_4() {
   Serial.print("Giro Padrão");
   Serial.println();
   delay(tmp);
@@ -197,9 +176,7 @@ void passo_4() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 4;
-}
-
-void passo_5() {
+} void passo_5() {
   Serial.print("Giro Mínimo");
   Serial.println();
   delay(tmp);
@@ -217,9 +194,7 @@ void passo_5() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 5;
-}
-
-void passo_6() {
+} void passo_6() {
   Serial.print("Giro Mínimo");
   Serial.println();
   delay(tmp);
@@ -237,9 +212,7 @@ void passo_6() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 6;
-}
-
-void passo_7() {
+} void passo_7() {
   Serial.print("Subida");
   Serial.println();
   delay(tmp);
@@ -257,9 +230,7 @@ void passo_7() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 7;
-}
-
-void passo_8() {
+} void passo_8() {
   Serial.print("Giro Padrão");
   Serial.println();
   delay(tmp);
@@ -277,9 +248,7 @@ void passo_8() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 8;
-}
-
-void passo_9() {
+} void passo_9() {
   Serial.print("Descida");
   Serial.println();
   delay(tmp);
@@ -297,9 +266,7 @@ void passo_9() {
   Serial.println();
   delay(tmp_intervalo);
   indice = 9;
-}
-
-void estabilizacao() {
+} void estabilizacao() {
   Serial.print("Estabilização");
   Serial.println();
   delay(tmp);
