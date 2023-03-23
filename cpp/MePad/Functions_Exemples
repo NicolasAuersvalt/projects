@@ -609,7 +609,7 @@ void passo_6() {
   Serial.println();
   delay(tmp);
 
-  myservob4.write(ang_min);
+  myservob4.write(ang_lim_min);
   delay(tmp);
 
   Serial.print("Giro Mínimo OK");
@@ -737,22 +737,22 @@ void passo_9() {
 
   indice = 9; //Próximo Passo
 }
+
+void estabilizacao() {
+  Serial.print("Estabilização");
+  Serial.println();
+  delay(tmp);
+
+  myservob1.write(ang_padrao);
+  myservob2.write(ang_padrao);
+  myservob3.write(ang_padrao);
+  myservob4.write(ang_padrao);
+  delay(tmp);
+
+  Serial.print("Estado: Nominal");
+  Serial.println();
+  delay(tmp_intervalo);
+  indice = 0; // Etapa Inicial
 }
 
-  void estabilizacao(){
-    Serial.print("Estabilização");
-    Serial.println();
-    delay(tmp);
-
-    myservob1.write(ang_padrao);
-    myservob2.write(ang_padrao);
-    myservob3.write(ang_padrao);
-    myservob4.write(ang_padrao);
-    delay(tmp);
-
-    Serial.print("Estado: Nominal");
-    Serial.println();
-    delay(tmp_intervalo);
-    indice = 0; // Etapa Inicial
-  }
 */
