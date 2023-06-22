@@ -67,7 +67,7 @@ ESP8266 wifi(&EspSerial);
 Servo left;    // Left Side Arm
 Servo right;   // Right Side Arm
 Servo bottom;  // Base Servo
-Servo top;     // Claw Servo
+Servo claw;    // Claw Servo
 
 // Joystick
 #define axis_y A2
@@ -75,12 +75,12 @@ Servo top;     // Claw Servo
 #define button 6
 
 // Limites Máximos
-int right_max_lim = 120;
-int left_max_lim = 73;
+int right_max_lim = 100;  // 120
+int left_max_lim = 60;    // 73
 
 // Limites Mínimos
-int right_min_lim = 20;
-int left_min_lim = 20;
+int right_min_lim = 40;  // 20
+int left_min_lim = 40;
 
 // Limites da Base
 int base_min_lim = 1;
@@ -94,6 +94,9 @@ int claw_max_lim = 100;
 int base_padrao = 90;
 int pinValue_left;
 int pinValue_right;
+int pinValue_prof;
+int pinValue_alt;
+int pinValue_claw;
 int on_off;
 
 // Tempos de Delays
@@ -106,23 +109,113 @@ const int tmp_motors = 1000;
 #define bottomPin A3
 #define clawPin 3
 
+void arm(int pinValue_prof, int pinValue_alt) {
+
+    Serial.print("Braço"); 
+    Serial.println();
+
+  if (pinValue_prof == 1) {
+    
+    Serial.print("Lá");
+    Serial.println();
+
+    left.attach(leftPin);
+    left.write(left_max_lim);  // Gira à esquerda
+    delay(tmp_motors);
+    left.detach();
+  }
+
+  // Left Off
+  else if (pinValue_prof == 0) {
+
+    Serial.print("Aqui");
+    Serial.println();
+
+    left.attach(leftPin);
+    left.write(left_min_lim);  // Padroniza
+    delay(tmp_motors);
+    left.detach();
+  }
+
+  //
+
+  else if (pinValue_alt == 1) {
+
+    Serial.print("Alto");
+    Serial.println();
+
+    right.attach(rightPin);
+    right.write(right_min_lim);  // Gira à esquerda
+    delay(tmp_motors);
+    right.detach();
+  }
+
+  // Left Off
+  else if (pinValue_alt == 0) {
+
+    Serial.print("Baixo");
+    Serial.println();
+
+    right.attach(rightPin);
+    right.write(right_max_lim);  // Padroniza
+    delay(tmp_motors);
+    right.detach();
+  }
+}
+
+void top(int pinValue_claw) {
+
+  Serial.print("Garra");
+
+  if (pinValue_claw == 1) {
+
+    Serial.print("Aberta");
+    Serial.println();
+    
+    claw.attach(clawPin);
+    claw.write(claw_max_lim);
+    delay(tmp_motors);
+    claw.detach();
+  }
+
+  // Left Off
+  else if (pinValue_claw == 0) {
+
+    Serial.print("Fechada");
+    Serial.println();
+
+    claw.attach(clawPin);
+    claw.write(claw_min_lim);
+    delay(tmp_motors);
+    claw.detach();
+  }
+}
+
 void bottomMove(int pinValue_left, int pinValue_right) {
 
   // For LEFT (V1) Button
-  Serial.print("Move");
+  Serial.print("Bottom");
+  Serial.println();
 
   // Left On
   if ((pinValue_left == 1) && (pinValue_right == 0)) {
-    Serial.print("Lesgoo");
+
+    Serial.print("Esquerda");
+    Serial.println();
+
     bottom.attach(bottomPin);
-    bottom.write(base_min_lim); // Gira à esquerda
-    delay(tmp_motors); 
+    bottom.write(base_min_lim);  // Gira à esquerda
+    delay(tmp_motors);
     bottom.detach();
-    
+
   }
 
   // Left Off
   else if ((pinValue_left == 0) && (pinValue_right == 0)) {
+
+    Serial.print("Centro");
+    Serial.println();
+    
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
     delay(tmp_motors);
@@ -132,6 +225,10 @@ void bottomMove(int pinValue_left, int pinValue_right) {
   // For Right (V2) Button
 
   if ((pinValue_right == 1) && (pinValue_left == 0)) {  // On
+    
+    Serial.print("Direita");
+    Serial.println();
+
     bottom.attach(bottomPin);
     bottom.write(base_max_lim);  // Gira à direita
     delay(tmp_motors);
@@ -139,6 +236,10 @@ void bottomMove(int pinValue_left, int pinValue_right) {
   }
 
   else if ((pinValue_right == 0) && (pinValue_left == 0)) {
+    
+    Serial.print("Centro");
+    Serial.println();
+
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
     delay(tmp_motors);
@@ -149,6 +250,10 @@ void bottomMove(int pinValue_left, int pinValue_right) {
 
   // Right and Left OFF
   else if (((pinValue_left == 0) && (pinValue_right == 0)) || ((pinValue_left == 1) && (pinValue_right == 1))) {  // left ON and right ON
+    
+    Serial.print("Centro");
+    Serial.println();
+
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
     delay(tmp_motors);
@@ -188,28 +293,36 @@ void loop() {
 }
 
 BLYNK_WRITE(V1)  // Left
-  {
-    pinValue_left = param.asInt();  // assigning incoming value from pin V1 to a variable
-    
-  }
-  BLYNK_WRITE(V2)  // Right
-  {
-    pinValue_right = param.asInt();  // assigning incoming value from pin V1 to a variable
-  }
-  BLYNK_WRITE(V3)  // Active
-  {
-    on_off = param.asInt();  // assigning incoming value from pin V1 to a variable
-    if (on_off == 1) {
-      
-      // Passa os valores On Off dos botões
-      bottomMove(pinValue_left, pinValue_right);
-    }
-    /*
+{
+  pinValue_left = param.asInt();  // assigning incoming value from pin V1 to a variable
+  bottomMove(pinValue_left, pinValue_right);
+}
+BLYNK_WRITE(V2)  // Right
+{
+  pinValue_right = param.asInt();  // assigning incoming value from pin V1 to a variable
+  bottomMove(pinValue_left, pinValue_right);
+}
+BLYNK_WRITE(V3)  // Prof
+{
+  pinValue_prof = param.asInt();
+  arm(pinValue_prof, pinValue_alt);
+}
+BLYNK_WRITE(V4)  // Prof
+{
+  pinValue_alt = param.asInt();
+  top(pinValue_alt);
+}
+BLYNK_WRITE(V5)  // Prof
+{
+  pinValue_claw = param.asInt();
+  top(pinValue_claw);
+}
+/*
     Testar função while
 
     while(on_off == 1){ 
     */
-  }
+
 
 
 
