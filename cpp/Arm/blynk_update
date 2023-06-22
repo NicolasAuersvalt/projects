@@ -307,7 +307,7 @@ BLYNK_WRITE(V3)  // Prof
   pinValue_prof = param.asInt();
   arm(pinValue_prof, pinValue_alt);
 }
-BLYNK_WRITE(V4)  // Prof
+BLYNK_WRITE(V4)  // Alt
 {
   pinValue_alt = param.asInt();
   top(pinValue_alt);
