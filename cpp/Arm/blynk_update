@@ -54,8 +54,8 @@ char pass[] = "7707224527";
 
 // ESP Pins
 
-#define rx A4
-#define tx A5
+#define rx A5
+#define tx A4
 SoftwareSerial EspSerial(rx, tx);  // RX, TX
 
 // Your ESP8266 baud rate:
@@ -98,7 +98,7 @@ int on_off;
 
 // Tempos de Delays
 const int tmp = 1000;
-const int tmp_motors = 40;
+const int tmp_motors = 1000;
 
 // Pinos
 #define leftPin A1
@@ -109,21 +109,24 @@ const int tmp_motors = 40;
 void bottomMove(int pinValue_left, int pinValue_right) {
 
   // For LEFT (V1) Button
+  Serial.print("Move");
 
   // Left On
   if ((pinValue_left == 1) && (pinValue_right == 0)) {
+    Serial.print("Lesgoo");
     bottom.attach(bottomPin);
-    bottom.write(base_min_lim);  // Gira à esquerda
+    bottom.write(base_min_lim); // Gira à esquerda
+    delay(tmp_motors); 
     bottom.detach();
-    delay(tmp_motors);
+    
   }
 
   // Left Off
   else if ((pinValue_left == 0) && (pinValue_right == 0)) {
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
-    bottom.detach();
     delay(tmp_motors);
+    bottom.detach();
   }
 
   // For Right (V2) Button
@@ -131,15 +134,15 @@ void bottomMove(int pinValue_left, int pinValue_right) {
   if ((pinValue_right == 1) && (pinValue_left == 0)) {  // On
     bottom.attach(bottomPin);
     bottom.write(base_max_lim);  // Gira à direita
-    bottom.detach();
     delay(tmp_motors);
+    bottom.detach();
   }
 
   else if ((pinValue_right == 0) && (pinValue_left == 0)) {
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
-    bottom.detach();
     delay(tmp_motors);
+    bottom.detach();
   }
 
   // For LEFT (V1) and RIGHT (V2) Button
@@ -148,8 +151,8 @@ void bottomMove(int pinValue_left, int pinValue_right) {
   else if (((pinValue_left == 0) && (pinValue_right == 0)) || ((pinValue_left == 1) && (pinValue_right == 1))) {  // left ON and right ON
     bottom.attach(bottomPin);
     bottom.write(base_padrao);  // Padroniza
-    bottom.detach();
     delay(tmp_motors);
+    bottom.detach();
   }
 }
 
@@ -187,6 +190,7 @@ void loop() {
 BLYNK_WRITE(V1)  // Left
   {
     pinValue_left = param.asInt();  // assigning incoming value from pin V1 to a variable
+    
   }
   BLYNK_WRITE(V2)  // Right
   {
@@ -196,7 +200,7 @@ BLYNK_WRITE(V1)  // Left
   {
     on_off = param.asInt();  // assigning incoming value from pin V1 to a variable
     if (on_off == 1) {
-
+      
       // Passa os valores On Off dos botões
       bottomMove(pinValue_left, pinValue_right);
     }
