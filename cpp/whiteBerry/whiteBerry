@@ -1,0 +1,205 @@
+/*
+==============================================
+Developed by Nícolas Auersvalt
+whiteBerry inspired in the famous blackBerry,
+but it consist in a portable challenges machine.
+Current Version (1.0)
+==============================================
+
+Version (1.0)
+==============================================
+
+Adequação da orientação a objeto ()
+Formular um menu principal para escolher a fase,
+por exemplo:
+
+> 01 nome_da_fase 
+  02 nome_da_fase
+
+  Preciso fazer uma lógica que consiste em
+  Ao apertar o botão AVANÇAR, a seta aparece no 
+  próximo da lista, e este sobre para (0,0)
+  enquanto que o próximo da lista aparece em (0,1)
+
+*/
+//#include "menu_whiteBerry.ino"
+#include <LiquidCrystal.h>
+#include <Keypad.h>
+
+// Define o número de linhas e colunas do teclado
+const byte ROWS = 4;  // Quatro linhas
+const byte COLS = 3;  // Três colunas
+
+// Define os caracteres que correspondem a cada tecla
+char keys[ROWS][COLS] = {
+  { '1', '2', '3' },
+  { '4', '5', '6' },
+  { '7', '8', '9' },
+  { '*', '0', '#' }
+};
+
+
+
+bool enigma_1_resolvido = false;
+unsigned long lastIncorrectTime = 0;
+
+// Define os pinos que conectam as linhas e colunas do teclado
+byte rowPins[ROWS] = { 13, 12, 11, 10 };  // Conecta as linhas do teclado aos pinos 9 a 6 do Arduino
+byte colPins[COLS] = { 9, 8, 7 };         // Conecta as colunas do teclado aos pinos 5 a 3 do Arduino
+
+// Inicialize a biblioteca com os pinos corretos
+LiquidCrystal lcd(6, 5, 4, 3, 2, A0);
+
+// Cria um objeto Keypad passando as informações acima
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+class EnigmaBase {
+protected:
+
+  const int tmp = 100;
+  const int tmp2 = 400;
+  const int tempao = 1000;
+
+public:
+};
+
+
+class Enigma_1 : public EnigmaBase {
+private:
+
+  const int MAX_TENTATIVAS = 3;
+  int tentativas = 0;
+
+  // O menor par
+  char palavra2[12] = { 'O', ' ', 'm', 'e', 'n', 'o', 'r', ' ', 'p', 'a', 'r', ':' };
+
+  bool keypadAtivo = false;
+
+public:
+
+  // Construtor
+  Enigma_1() {
+
+    // Primeira Linha
+    lcd.setCursor(0, 0);
+  }
+
+  void enigma_1() {
+
+    // Usa um loop for para percorrer cada caractere do array
+    for (int i = 0; i < 12; i++) {
+
+      // Imprime o caractere no lcd
+      lcd.print(palavra2[i]);
+
+      // Espera o tempo definido na variável tmp
+      delay(tmp);
+    }
+
+    if (keypadAtivo) {
+
+      char key = keypad.getKey();
+
+      if (key != NO_KEY) {
+
+        if (key == '0') {
+
+          lcd.clear();
+
+          lcd.setCursor(0, 1);
+
+          lcd.print("Muito bem");
+
+          delay(tempao);
+
+          tentativas++;
+
+          if (tentativas < MAX_TENTATIVAS) {
+
+            enigma_1();  // Chama novamente o enigma_1 para uma nova tentativa
+
+          } else {
+
+            lcd.clear();
+            lcd.setCursor(0, 1);
+            lcd.print("Enigma não resolvido.");
+            delay(tempao);
+            //menu();
+          }
+
+        } else {
+
+          lcd.clear();
+
+          lcd.setCursor(0, 1);
+
+          lcd.print("Incorreto, tente novamente.");
+
+          delay(tempao);
+        }
+      }
+    }
+  }
+};
+
+
+/*
+intro() {
+
+  // whiteBerry
+  char palavra[14] = { 'w', 'h', 'i', 't', 'e', 'B', 'e', 'r', 'r', 'y', ' ', '1', '.', '0' };
+
+  // Usa um loop for para percorrer cada caractere do array
+  for (int i = 0; i < 14; i++) {
+
+    // Imprime o caractere no lcd
+    lcd.print(palavra[i]);
+
+    // Espera o tempo definido na variável tmp
+    delay(tmp);
+  }
+
+  // Linha 2
+  lcd.setCursor(0, 1);
+
+  // Loading...
+  char palavra1[10] = { 'L', 'o', 'a', 'd', 'i', 'n', 'g', '.', '.', '.' };
+
+  // Usa um loop for para percorrer cada caractere do array
+  for (int i = 0; i < 10; i++) {
+
+    // Imprime o caractere no lcd
+    lcd.print(palavra1[i]);
+
+    // Espera o tempo definido na variável tmp
+    delay(tmp2);
+  }
+
+  // Delay e Limpa a tela
+  delay(tempao);
+  lcd.clear();
+
+  enigma_1(key);
+}
+*/
+
+// Instancias
+Enigma_1 enigma1;
+
+void setup() {
+
+  // Inicia a comunicação serial
+  Serial.begin(9600);
+
+  // Especifica o número de colunas e linhas do display
+  lcd.begin(16, 2);
+
+  // intro();
+}
+
+void loop() {
+
+  if (!enigma_1_resolvido) {
+    enigma1.enigma_1();
+  }
+}
