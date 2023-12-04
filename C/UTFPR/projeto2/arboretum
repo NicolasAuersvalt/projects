@@ -1,0 +1,170 @@
+/*
+==============================================
+Developed by Nícolas Auersvalt
+Isabela Bella Bortoleto
+Vittor Henrique
+
+Current Version (1.1)
+==============================================
+
+*/
+
+// Blink
+#define BLYNK_TEMPLATE_ID "TMPLrG9kgao2"
+#define BLYNK_TEMPLATE_NAME "ESP8266"
+#define BLYNK_AUTH_TOKEN "NpE9rh2CVCOxYIGL-78m3zfKID46Rtvh"
+#define BLYNK_PRINT Serial
+
+#include <ESP8266_Lib.h>
+#include <BlynkSimpleShieldEsp8266.h>
+#include <SoftwareSerial.h>
+#include <AFMotor.h>
+
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "nicolas";
+char pass[] = "12345678";
+
+#define EspSerial Serial1
+
+// ESP Pins
+SoftwareSerial EspSerial(9, 10); // RX, TX
+
+// Your ESP8266 baud rate:
+#define ESP8266_BAUD 9600
+
+ESP8266 wifi(&EspSerial);
+
+// Define motors in M[1-2] output
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+
+const int max_range = 200; /* Valor máximo da velocidade */
+
+// Delay Time
+int time; 
+
+int mov(int time, int x, int y)
+{
+    int starting_position = 128;
+    int lim_nx = 108;
+    int lim_x = 148;
+
+    /*
+      Motores:
+        motor1 - Motor da Esquerda
+        motor4 - Motor da Direita
+    */
+
+    // Accelerated Motion
+
+    if ((x > lim_x) && (y > starting_position)) // Frontal Right Turn
+    {
+        Serial.println("Frontal Right Turn");
+
+        // Start motor running (FORWARD AND BACKWARD)
+        motor1.run(BACKWARD); // Frontal Left
+        motor1.setSpeed(y);
+
+        motor2.setSpeed(y);  // Frontal Right
+        motor2.run(BACKWARD); // Stopped
+        delay(time);
+    }
+
+    else if ((x < lim_nx) && (y > starting_position)) // Frontal Left Turn
+    {
+        Serial.println("Frontal Left Turn");
+        motor1.setSpeed(y);
+        motor1.run(BACKWARD);
+
+        motor2.setSpeed(y);
+        motor2.run(FORWARD);
+        delay(time);
+    }
+
+    // Retograde Motion
+
+    else if ((x > lim_x) && (y < starting_position)) // Back Right Turn
+    {
+        Serial.println("Back Right Turn");
+        motor1.setSpeed(255-y);
+        motor1.run(FORWARD);
+
+        motor2.setSpeed(255-y);
+        motor2.run(BACKWARD);
+        delay(time);
+    }
+
+    else if ((x < lim_nx) && (y < starting_position)) // Back Left Turn
+    {
+        Serial.println("Back Left Turn!");
+        motor1.run(FORWARD);
+        motor1.setSpeed(255-y);
+
+        motor2.setSpeed(255-y);
+        motor2.run(BACKWARD);
+        delay(time);
+    }
+
+    else if ((x == starting_position) && (y == starting_position)) // Rest
+    {
+        Serial.println("Resting");
+        motor1.setSpeed(y);
+        motor1.run(RELEASE);
+
+        motor2.setSpeed(y);
+        motor2.run(RELEASE);
+        delay(time);
+    }
+
+    else if ((lim_nx < x < lim_x) && (y > starting_position)) // Frontal Movement
+    {
+        Serial.println("Frontal Motion");
+        motor1.setSpeed(y);
+        motor1.run(BACKWARD);
+
+        motor2.setSpeed(y);
+        motor2.run(FORWARD);
+        delay(time);
+    }
+
+    else if ((lim_nx < x < lim_x) && (y < starting_position)) // Back Movement
+    {
+        Serial.println("Back Motion");
+        motor1.setSpeed(255-y);
+        motor1.run(FORWARD);
+
+        motor2.setSpeed(255-y);
+        motor2.run(BACKWARD);
+        delay(time);
+    }
+}
+
+void setup()
+{
+    // Debug console
+    Serial.begin(9600);
+
+    // Set ESP8266 baud rate
+    EspSerial.begin(ESP8266_BAUD);
+
+    Blynk.begin(auth, wifi, ssid, pass);
+}
+
+void loop()
+{
+    Blynk.run();
+}
+
+/*
+  Pins List:
+    Joystick (V0)
+*/
+
+// Joystick Virtual Pins
+BLYNK_WRITE(V0)
+{
+    int x = param[0].asInt(); // X Axis
+    int y = param[1].asInt(); // Y Axis
+    mov(time, x, y);
+}
+
