@@ -1,3 +1,1 @@
-This is a robotic platform project. His owner is Nícolas Auersvalt (me :) ), Computing Engineering entrance exam student.
-Current Version (1.1)
-SSID and Password has been removed for my own security.
+WitBot is the combination of a 4-wheel chassis with 4 DC motors (3-6V), along with a robotic arm equipped with 4 servo motors. It includes an ESP8266 module and an L293D shield. It uses Blynk, enabling control via a phone connected to the same Wi-Fi.
