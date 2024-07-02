@@ -4,7 +4,7 @@ CyberSpider has 2 DC motors (3-6V), an ESP8266 module, and an L293D shield as it
 
 <li>First: <a href="https://www.youtube.com/watch?v=GoA9viotmpE&list=PLwC3YCyq5TS-rql33oZtDZBGxSMO78AJu&index=6"></a></li>
 
-<li>[Second](https://www.youtube.com/watch?v=jGRew-9RtNo&list=PLwC3YCyq5TS-rql33oZtDZBGxSMO78AJu&index=6)</li><br>
+<li>[Second]</li>(https://www.youtube.com/watch?v=jGRew-9RtNo&list=PLwC3YCyq5TS-rql33oZtDZBGxSMO78AJu&index=6)<br>
 
 <img src="https://github.com/NicolasAuersvalt/Projects/blob/main/Rob%C3%B3tica/Cyber_aranha/imagens/cyber.jpg">
 
